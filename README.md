@@ -1,7 +1,8 @@
 # Final Project Proposal
 ##### Note: Since I am still looking for teammates to form a group, and I don’t know what exactly my teammates will be interested in, so I am listing 2 project proposals and will eventually pick one of them. 
 
-## Team: 	Wu, Qingjun
+## Team: 	
+			Wu, Qingjun
 
 			Karkada Nakshathri, Athreya
 

@@ -12,7 +12,8 @@
 
 ##Title: WeChat like system
 
-##Summary: WeChat is an Instant Messenger like WhatsApp, it is very popular especially in Chinese community. It is a combination of Instant Message and Social Network. This system will include both UI and backend. 
+##Summary: 
+WeChat is an Instant Messenger like WhatsApp, it is very popular especially in Chinese community. It is a combination of Instant Message and Social Network. This system will include both UI and backend. 
 
 ##Functionality: 
 
@@ -52,7 +53,8 @@ Key Technologies/Components of the system:
 
 ##Title: Tiny URL System
 
-##Project Summary:   The system will have look like bit.ly, which maps long URL into short URL presented by 6 alphabet numbers.  The system will be mainly focusing on the back end; there would be GUI, but it will be just simple UI. 
+##Project Summary:   
+The system will have look like bit.ly, which maps long URL into short URL presented by 6 alphabet numbers.  The system will be mainly focusing on the back end; there would be GUI, but it will be just simple UI. 
 
 ##Functionality: 
 

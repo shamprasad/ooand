@@ -9,7 +9,6 @@
 			Padhy, Umakant
 
 
-#### Project 1: 
 
 ##Title: WeChat like system
 

@@ -4,7 +4,7 @@
 ## Team: 	
 			Wu, Qingjun
 
-			Karkada Nakshathri, Athreya
+			Sham Prasad PS
 
 			Padhy, Umakant
 

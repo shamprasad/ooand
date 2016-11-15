@@ -1,4 +1,4 @@
-package WeChat;
+package wechat;
 
 import java.net.*;
 import java.io.*;
@@ -102,7 +102,7 @@ public class Client  {
 	/*
 	 * To send a message to the server
 	 */
-	void sendMessage(ChatMessage msg) {
+	void sendMessage(wechat.ChatMessage msg) {
 		try {
 			outputStream.writeObject(msg);
 		}
@@ -200,16 +200,16 @@ public class Client  {
 			String msg = scan.nextLine();
 			// logout if message is LOGOUT
 			if(msg.equalsIgnoreCase("LOGOUT")) {
-				client.sendMessage(new ChatMessage(ChatMessage.LOGOUT, ""));
+				client.sendMessage(new wechat.ChatMessage(wechat.ChatMessage.LOGOUT, ""));
 				// break to do the disconnect
 				break;
 			}
 			// message WhoIsIn
 			else if(msg.equalsIgnoreCase("WHOISIN")) {
-				client.sendMessage(new ChatMessage(ChatMessage.OnlineUsers, ""));				
+				client.sendMessage(new wechat.ChatMessage(wechat.ChatMessage.OnlineUsers, ""));
 			}
 			else {				// default to ordinary message
-				client.sendMessage(new ChatMessage(ChatMessage.MESSAGE, msg));
+				client.sendMessage(new wechat.ChatMessage(wechat.ChatMessage.MESSAGE, msg));
 			}
 		}
 		// done disconnect

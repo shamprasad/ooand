@@ -1,8 +1,7 @@
-package WeChat;
+package wechat;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
-
 import java.awt.*;
 import java.awt.event.*;
 
@@ -153,7 +152,7 @@ public class ClientWindow extends JFrame implements ActionListener {
 		}
 		// if it the who is in button
 		if(o == OnlineUsers) {
-			client.sendMessage(new ChatMessage(ChatMessage.OnlineUsers, ""));				
+			client.sendMessage(new ChatMessage(ChatMessage.OnlineUsers, ""));
 			return;
 		}
 

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="WeChat">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../Common/bin/wechat" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

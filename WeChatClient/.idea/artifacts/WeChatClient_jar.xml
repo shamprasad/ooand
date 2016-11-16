@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="WeChatClient:jar">
+    <output-path>$PROJECT_DIR$/classes/artifacts/WeChatClient_jar</output-path>
+    <root id="archive" name="WeChatClient.jar">
+      <element id="module-output" name="WeChatClient" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../Common/classes/artifacts/common/common.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

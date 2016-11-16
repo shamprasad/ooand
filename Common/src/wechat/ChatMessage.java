@@ -15,6 +15,7 @@ public class ChatMessage extends Message implements Serializable {
     // LOGOUT to disconnect from the Server
     static final int OnlineUsers = 0, MESSAGE = 1, LOGOUT = 2;
     private int type;
+    MessageType _messageType;
     private String message;
 
     // constructor
@@ -27,7 +28,22 @@ public class ChatMessage extends Message implements Serializable {
     int getType() {
         return type;
     }
+
+    MessageType getMessageType(){
+        return _messageType;
+    }
+
+    void setMessageType(MessageType type)
+    {
+        _messageType = type;
+    }
+
     String getMessage() {
         return message;
+    }
+
+    void setMessage(String m)
+    {
+        message = m;
     }
 }

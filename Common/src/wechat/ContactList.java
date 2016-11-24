@@ -6,7 +6,7 @@ import java.util.Hashtable;
 import java.util.LinkedList;
 
 /**
- * Created by qingjun wuon 11/15/2016.
+ * Created by qingjun wu  11/15/2016.
  */
 public class ContactList extends  Contact implements IContactList {
     private LinkedList<Contact> contacts;

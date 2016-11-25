@@ -7,12 +7,23 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
+@Table(name="contact")
 public class Contact {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int    id;
 
 	private String name;
+	
+	public Contact(String name)
+	{
+		this.name = name;
+	}
+	
+	public Contact()
+	{
+	
+	}
 	
 	public String getName()
 	{
@@ -22,5 +33,10 @@ public class Contact {
 	public void setName(String name)
 	{
 		this.name = name;
+	}
+	
+	public String toString()
+	{
+		return "Contact(id: " + this.id + ", name: " + this.name + ")";
 	}
 }

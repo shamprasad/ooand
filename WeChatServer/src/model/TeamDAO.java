@@ -5,31 +5,35 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import java.lang.UnsupportedOperationException;
-
-public class ContactDAO implements IContactDAO {
+public class TeamDAO implements ITeamDAO {
 	private SessionFactory sessionFactory;
 
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 	
-	public void save(Contact contact){
+	public void save(Team group)
+	{
 		Session session = this.sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
-		session.persist(contact);
+		session.persist(group);
 		tx.commit();
-		session.close();		
-	}
-	
-	public List<Contact> list(){
-		Session session = this.sessionFactory.openSession();
-		List<Contact> contactList = session.createQuery("from Contact").list();
 		session.close();
-		return contactList;
 	}
 	
-	public List<Contact> list(int groupId) {
-		throw new UnsupportedOperationException();
+	public List<Team> list()
+	{
+		Session session = this.sessionFactory.openSession();
+		List<Team> groupList = session.createQuery("from Team").list();
+		session.close();
+		return groupList;
+	}
+	
+	public List<Contact> list(int groupId)
+	{
+		Session session = this.sessionFactory.openSession();
+		List<Contact> contactList = session.createQuery("select * from from Team").list();
+		session.close();
+		return contactList;		
 	}
 }

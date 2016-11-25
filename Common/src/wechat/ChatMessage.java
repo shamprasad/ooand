@@ -14,7 +14,7 @@ public class ChatMessage extends Message implements Serializable {
     // MESSAGE an ordinary message
     // LOGOUT to disconnect from the Server
     static final int OnlineUsers = 0, MESSAGE = 1, LOGOUT = 2;
-    private int type, _fromContactId, _toContactId, _messageId;
+    private int type, _fromContactId, _toContactId, _messageId, _groupId;
     private  MessageType _messageType;
     private String message;
 
@@ -59,21 +59,31 @@ public class ChatMessage extends Message implements Serializable {
         _messageId = id;
     }
 
-    MessageType getMessageType(){
+    public MessageType getMessageType(){
         return _messageType;
     }
 
-    void setMessageType(MessageType type)
+    public void setMessageType(MessageType type)
     {
         _messageType = type;
     }
 
-    String getMessage() {
+    public String getMessage() {
         return message;
     }
 
-    void setMessage(String m)
+    public void setMessage(String m)
     {
         message = m;
+    }
+    
+    public int getGroupId()
+    {
+    	return _groupId;
+    }
+    
+    public void setGroupId(int id)
+    {
+    	_groupId = id;
     }
 }

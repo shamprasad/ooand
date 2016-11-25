@@ -28,8 +28,8 @@
 		<property name="annotatedClasses">
 			<list>
 				<value>model.Contact</value>
-				<value>model.Group</value>
-				<value>model.GroupContact</value>
+				<value>model.Team</value>
+				<value>model.TeamContact</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -45,5 +45,11 @@
 		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
 	</bean>
 	
+	<bean id="teamDAO" class="model.TeamDAO">
+		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</bean>
 	
+	<bean id="teamContactDAO" class="model.TeamContactDAO">
+		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</bean>	
 </beans>

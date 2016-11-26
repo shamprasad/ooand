@@ -6,8 +6,10 @@ package wechat;
 public enum MessageType {
 	undefined,
 	Register,
+	JoinGroup,
 	LogIn,
 	LogOut,
 	GroupMessage,
+	OnlineUsers,
 	IndividualMessage
 }

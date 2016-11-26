@@ -14,19 +14,19 @@ public class ChatMessage extends Message implements Serializable {
     // MESSAGE an ordinary message
     // LOGOUT to disconnect from the Server
     static final int OnlineUsers = 0, MESSAGE = 1, LOGOUT = 2;
-    private int type, _fromContactId, _toContactId, _messageId, _groupId;
+    private int _fromContactId, _toContactId, _messageId, _groupId;
     private  MessageType _messageType;
     private String message;
 
     // constructor
-    ChatMessage(int type, String message) {
-        this.type = type;
+    ChatMessage(MessageType type, String message) {
+        this._messageType = type;
         this.message = message;
     }
 
     // getters
-    int getType() {
-        return type;
+    MessageType getType() {
+        return _messageType;
     }
 
     public int getFromContactId()

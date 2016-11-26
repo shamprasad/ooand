@@ -200,16 +200,16 @@ public class Client  {
 			String msg = scan.nextLine();
 			// logout if message is LOGOUT
 			if(msg.equalsIgnoreCase("LOGOUT")) {
-				client.sendMessage(new wechat.ChatMessage(wechat.ChatMessage.LOGOUT, ""));
+				client.sendMessage(new wechat.ChatMessage(MessageType.LogOut, ""));
 				// break to do the disconnect
 				break;
 			}
 			// message WhoIsIn
 			else if(msg.equalsIgnoreCase("WHOISIN")) {
-				client.sendMessage(new wechat.ChatMessage(wechat.ChatMessage.OnlineUsers, ""));
+				client.sendMessage(new wechat.ChatMessage(MessageType.OnlineUsers, ""));
 			}
 			else {				// default to ordinary message
-				client.sendMessage(new wechat.ChatMessage(wechat.ChatMessage.MESSAGE, msg));
+				client.sendMessage(new wechat.ChatMessage(MessageType.GroupMessage, msg));
 			}
 		}
 		// done disconnect

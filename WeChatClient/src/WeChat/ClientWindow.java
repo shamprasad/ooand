@@ -147,19 +147,19 @@ public class ClientWindow extends JFrame implements ActionListener {
 		Object o = e.getSource();
 		// if it is the Logout button
 		if(o == logout) {
-			client.sendMessage(new ChatMessage(ChatMessage.LOGOUT, ""));
+			client.sendMessage(new ChatMessage(MessageType.LogOut, ""));
 			return;
 		}
 		// if it the who is in button
 		if(o == OnlineUsers) {
-			client.sendMessage(new ChatMessage(ChatMessage.OnlineUsers, ""));
+			client.sendMessage(new ChatMessage(MessageType.OnlineUsers, ""));
 			return;
 		}
 
 		// ok it is coming from the JTextField
 		if(connected) {
 			// just have to send the message
-			client.sendMessage(new ChatMessage(ChatMessage.MESSAGE, textField.getText()));				
+			client.sendMessage(new ChatMessage(MessageType.GroupMessage, textField.getText()));
 			textField.setText("");
 			return;
 		}

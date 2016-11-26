@@ -244,15 +244,14 @@ public class Server {
 
 				// Switch on the type of message receive
 				switch(cm.getType()) {
-
-				case ChatMessage.MESSAGE:
+				case GroupMessage:
 					broadcast(username + ": " + message);
 					break;
-				case ChatMessage.LOGOUT:
+				case LogOut:
 					display(username + " disconnected with a LOGOUT message.");
 					serverStop = false;
 					break;
-				case ChatMessage.OnlineUsers:
+				case OnlineUsers:
 					writeMsg("List of the users connected at " + dateFormat.format(new Date()) + "\n");
 					// scan al the users connected
 					for(int i = 0; i < al.size(); ++i) {

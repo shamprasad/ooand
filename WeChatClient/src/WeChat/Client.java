@@ -43,6 +43,11 @@ public class Client  {
 		// save if we are in GUI mode or not
 		this.clientGraphicInterface = clientGraphicInterface;
 	}
+
+	String getUserName()
+	{
+		return this.username;
+	}
 	
 	/*
 	 * To start the dialog
@@ -232,6 +237,16 @@ public class Client  {
 						System.out.print("> ");
 					}
 					else {
+						if(msg.getMessageType() == MessageType.RegisterReponse && msg.getStauts() == Status.RegisteredUseExisting){
+							clientGraphicInterface.append("Failed to register!");
+							clientGraphicInterface.append(msg.getMessage());
+							clientGraphicInterface.connectionFailed();
+						}
+						else if(msg.getMessageType() == MessageType.LoginReponse && msg.getStauts() == Status.LoginFailed){
+							clientGraphicInterface.append("Failed to log in");
+							clientGraphicInterface.append(msg.getMessage());
+							clientGraphicInterface.connectionFailed();
+						}
 						clientGraphicInterface.append(msg.getMessage());
 					}
 				}

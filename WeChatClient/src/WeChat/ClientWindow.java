@@ -184,9 +184,9 @@ public class ClientWindow extends JFrame implements ActionListener {
 		if(!connected && (o == login || o == register)){
 			// ok it is a connection request
 			String username = textField.getText().trim();
-			// empty username ignore it
-			if(username.length() == 0)
-				return;
+
+			if(username.length() == 0) return ;
+
 			// empty serverAddress ignore it
 			String server = ServerAddress.getText().trim();
 			if(server.length() == 0)
@@ -211,6 +211,8 @@ public class ClientWindow extends JFrame implements ActionListener {
 
 		if(o == login) {
 			login();
+			client.sendMessage(new ChatMessage(MessageType.LogIn, client.getUserName()));
+			return;
 		}
 		// if it is the Logout button
 		if(o == logout) {

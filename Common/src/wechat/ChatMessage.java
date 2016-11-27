@@ -16,7 +16,7 @@ public class ChatMessage extends Message implements Serializable {
     static final int OnlineUsers = 0, MESSAGE = 1, LOGOUT = 2;
     private int _fromContactId, _toContactId, _messageId, _groupId;
     private  MessageType _messageType;
-
+    private Status _status;
     private String message;
 
     // constructor
@@ -86,5 +86,15 @@ public class ChatMessage extends Message implements Serializable {
     public void setGroupId(int id)
     {
     	_groupId = id;
+    }
+
+    public Status getStauts()
+    {
+        return this._status;
+    }
+
+    public void setStatus(Status status)
+    {
+        this._status = status;
     }
 }

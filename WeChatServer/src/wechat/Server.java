@@ -247,6 +247,14 @@ public class Server {
 				else {
 				contactDAO.save(new Contact(userName));
 			}
+
+		}
+
+		private boolean login(String userName)
+		{
+			ContactDAO contactDAO = context.getBean(ContactDAO.class);
+
+			return contactDAO.exists(userName);
 		}
 
 		// what will run forever
@@ -278,14 +286,26 @@ public class Server {
 				case GroupMessage:
 					broadcast(username + ": " + message);
 					break;
+				case LogIn:
+					ChatMessage chatMessage = new ChatMessage(MessageType.LoginReponse, "");
+					if(login(message.trim())){
+						chatMessage.setStatus(Status.LoginSuccessful);
+						chatMessage.setMessage("Login Successfully");
+					}
+					else{
+						chatMessage.setStatus(Status.LoginFailed);
+						chatMessage.setMessage("Failed to login user doesn't exist!");
+					}
+					writeObject(chatMessage);
+					break;
 				case LogOut:
 					display(username + " disconnected with a LOGOUT message.");
 					serverStop = false;
 					break;
 				case OnlineUsers:
 					//writeMsg("List of the users connected at " + dateFormat.format(new Date()) + "\n");
-					ChatMessage chatMessage = new ChatMessage(MessageType.GroupMessage, "List of the users connected at " + dateFormat.format(new Date()) + "\n");
-					writeObject(chatMessage);
+					ChatMessage cm = new ChatMessage(MessageType.GroupMessage, "List of the users connected at " + dateFormat.format(new Date()) + "\n");
+					writeObject(cm);
 					// scan al the users connected
 					for(int i = 0; i < al.size(); ++i) {
 						ClientThread ct = al.get(i);

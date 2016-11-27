@@ -11,5 +11,8 @@ public enum MessageType {
 	LogOut,
 	GroupMessage,
 	OnlineUsers,
+	RegisterReponse,
+	LoginReponse,
+	LogOutReponse,
 	IndividualMessage
 }

@@ -16,6 +16,7 @@ public class ChatMessage extends Message implements Serializable {
     static final int OnlineUsers = 0, MESSAGE = 1, LOGOUT = 2;
     private int _fromContactId, _toContactId, _messageId, _groupId;
     private  MessageType _messageType;
+
     private String message;
 
     // constructor

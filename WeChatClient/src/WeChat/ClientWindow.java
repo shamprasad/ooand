@@ -18,7 +18,7 @@ public class ClientWindow extends JFrame implements ActionListener {
 	// to hold the server address an the port number
 	private JTextField ServerAddress, ServerPort;
 	// to Logout and get the list of the users
-	private JButton login, logout, OnlineUsers;
+	private JButton login, logout, OnlineUsers, register;
 	// for the chat room
 	private JTextArea TextArea;
 	// if it is for connection
@@ -103,10 +103,17 @@ public class ClientWindow extends JFrame implements ActionListener {
 		OnlineUsers.addActionListener(this);
 		OnlineUsers.setEnabled(false);		// you have to login before being able to Who is in
 
+		register = new JButton("Register");
+		register.setBackground(Color.BLACK);
+		register.setForeground(Color.WHITE);
+		register.addActionListener(this);
+		register.setEnabled(true);
+
 		JPanel southPanel = new JPanel();
 		southPanel.add(login);
 		southPanel.add(logout);
 		southPanel.add(OnlineUsers);
+		southPanel.add(register);
 		add(southPanel, BorderLayout.SOUTH);
 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -133,39 +140,48 @@ public class ClientWindow extends JFrame implements ActionListener {
 		ServerPort.setText("" + defaultPort);
 		ServerAddress.setText(defaultHost);
 		// let the user change them
-		ServerAddress.setEditable(false);
-		ServerPort.setEditable(false);
+		ServerAddress.setEditable(true);
+		ServerPort.setEditable(true);
 		// don't react to a <CR> after the user name
 		textField.removeActionListener(this);
 		connected = false;
 	}
-		
+
+
+	private void login()
+	{
+		// try creating a new Client with GUI
+		//client = new Client(server, port, username, this);
+		// test if we can start the Client
+		//if(!client.start())
+		//	return;
+		textField.setText("");
+		label.setText("Enter your message below");
+		connected = true;
+
+		// disable login button
+		login.setEnabled(false);
+		// enable the 2 buttons
+		logout.setEnabled(true);
+		login.addActionListener(this);
+
+		register.setEnabled(false);
+
+		OnlineUsers.setEnabled(true);
+		// disable the Server and Port JTextField
+		ServerAddress.setEditable(false);
+		ServerPort.setEditable(false);
+		// Action listener for when the user enter a message
+		textField.addActionListener(this);
+	}
+
 	/*
 	* Button or JTextField clicked
 	*/
 	public void actionPerformed(ActionEvent e) {
 		Object o = e.getSource();
-		// if it is the Logout button
-		if(o == logout) {
-			client.sendMessage(new ChatMessage(MessageType.LogOut, ""));
-			return;
-		}
-		// if it the who is in button
-		if(o == OnlineUsers) {
-			client.sendMessage(new ChatMessage(MessageType.OnlineUsers, ""));
-			return;
-		}
 
-		// ok it is coming from the JTextField
-		if(connected) {
-			// just have to send the message
-			client.sendMessage(new ChatMessage(MessageType.GroupMessage, textField.getText()));
-			textField.setText("");
-			return;
-		}
-		
-
-		if(o == login) {
+		if(!connected && (o == login || o == register)){
 			// ok it is a connection request
 			String username = textField.getText().trim();
 			// empty username ignore it
@@ -186,27 +202,50 @@ public class ClientWindow extends JFrame implements ActionListener {
 			catch(Exception en) {
 				return;   // nothing I can do if port number is not valid
 			}
-
-			// try creating a new Client with GUI
 			client = new Client(server, port, username, this);
-			// test if we can start the Client
-			if(!client.start()) 
-				return;
-			textField.setText("");
-			label.setText("Enter your message below");
+			if(!client.start()) {
+				return ;
+			}
 			connected = true;
-			
-			// disable login button
-			login.setEnabled(false);
-			// enable the 2 buttons
-			logout.setEnabled(true);
-			OnlineUsers.setEnabled(true);
-			// disable the Server and Port JTextField
-			ServerAddress.setEditable(false);
-			ServerPort.setEditable(false);
-			// Action listener for when the user enter a message
-			textField.addActionListener(this);
 		}
+
+		if(o == login) {
+			login();
+		}
+		// if it is the Logout button
+		if(o == logout) {
+			client.sendMessage(new ChatMessage(MessageType.LogOut, ""));
+			connectionFailed();
+			if(client != null){
+				client.disconnect();
+			}
+			connected = false;
+			login.setEnabled(true);
+			register.setEnabled(true);
+			return;
+		}
+		// if it the who is in button
+		if(o == OnlineUsers) {
+			client.sendMessage(new ChatMessage(MessageType.OnlineUsers, ""));
+			return;
+		}
+
+		if(o == register)
+		{
+			client.sendMessage(new ChatMessage(MessageType.Register, textField.getText()));
+			login();
+			return ;
+		}
+
+		// ok it is coming from the JTextField
+		if(connected) {
+			// just have to send the message
+			client.sendMessage(new ChatMessage(MessageType.GroupMessage, textField.getText()));
+			textField.setText("");
+			return;
+		}
+		
+
 
 	}
 

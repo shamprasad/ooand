@@ -51,7 +51,7 @@ public class Client  {
 		// try to connect to the server
 		try {
 			socket = new Socket(server, port);
-		} 
+		}
 		// if it failed not much I can so
 		catch(Exception ec) {
 			display("Error connectiong to server:" + ec);
@@ -115,7 +115,7 @@ public class Client  {
 	 * When something goes wrong
 	 * Close the Input/Output streams and disconnect not much to do in the catch clause
 	 */
-	private void disconnect() {
+	public void disconnect() {
 		try { 
 			if(inputStream != null) inputStream.close();
 		}
@@ -225,14 +225,14 @@ public class Client  {
 		public void run() {
 			while(true) {
 				try {
-					String msg = (String) inputStream.readObject();
+					ChatMessage msg = (ChatMessage) inputStream.readObject();
 					// if console mode print the message and add back the prompt
 					if(clientGraphicInterface == null) {
-						System.out.println(msg);
+						System.out.println(msg.getMessage());
 						System.out.print("> ");
 					}
 					else {
-						clientGraphicInterface.append(msg);
+						clientGraphicInterface.append(msg.getMessage());
 					}
 				}
 				catch(IOException e) {

@@ -1,5 +1,9 @@
 package wechat;
 
+import model.*;
+import model.Contact;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import java.io.*;
 import java.net.*;
 import java.text.SimpleDateFormat;
@@ -21,7 +25,8 @@ public class Server {
 	private int port;
 	// the boolean that will be turned of to stop the server
 	private boolean serverStop;
-	
+
+	private ClassPathXmlApplicationContext context;
 
 	/*
 	 *  in console
@@ -127,15 +132,19 @@ public class Server {
 		
 		// we loop in reverse order in case we would have to remove a Client
 		// because it has disconnected
+
+		ChatMessage chatMessage = new ChatMessage(MessageType.GroupMessage, messageLf);
+
 		for(int i = al.size(); --i >= 0;) {
 			ClientThread ct = al.get(i);
 			// try to write to the Client if it fails remove it from the list
-			if(!ct.writeMsg(messageLf)) {
+			if(!ct.writeObject(chatMessage)) {
 				al.remove(i);
 				display("Disconnected Client " + ct.username + " removed from list.");
 			}
 		}
 	}
+
 
 	// for a client who logoff using the LOGOUT message
 	synchronized void remove(int id) {
@@ -157,7 +166,8 @@ public class Server {
 	 * If the port number is not specified 1500 is used
 	 */ 
 	public static void main(String[] args) {
-		// start server on port 1500 unless a PortNumber is specified 
+		// start server on port 1500 unless a PortNumber is specified
+
 		int portNumber = 1500;
 		switch(args.length) {
 			case 1:
@@ -223,8 +233,26 @@ public class Server {
             date = new Date().toString() + "\n";
 		}
 
+
+		private void register(String message)
+		{
+			ContactDAO contactDAO = context.getBean(ContactDAO.class);
+
+			String userName = message.trim();
+
+			if(contactDAO.exists(userName)) {
+				//writeMsg(userName + "is existing! Please use another user ame");
+				writeObject(new ChatMessage(MessageType.RegisterReponse, userName + "is existing! Please use another user ame"));
+			}
+				else {
+				contactDAO.save(new Contact(userName));
+			}
+		}
+
 		// what will run forever
 		public void run() {
+			context = new ClassPathXmlApplicationContext("Spring.xml");
+
 			// to loop until LOGOUT
 			boolean serverStop = true;
 			while(serverStop) {
@@ -244,6 +272,9 @@ public class Server {
 
 				// Switch on the type of message receive
 				switch(cm.getType()) {
+				case Register:
+					register(message);
+					break;
 				case GroupMessage:
 					broadcast(username + ": " + message);
 					break;
@@ -252,11 +283,14 @@ public class Server {
 					serverStop = false;
 					break;
 				case OnlineUsers:
-					writeMsg("List of the users connected at " + dateFormat.format(new Date()) + "\n");
+					//writeMsg("List of the users connected at " + dateFormat.format(new Date()) + "\n");
+					ChatMessage chatMessage = new ChatMessage(MessageType.GroupMessage, "List of the users connected at " + dateFormat.format(new Date()) + "\n");
+					writeObject(chatMessage);
 					// scan al the users connected
 					for(int i = 0; i < al.size(); ++i) {
 						ClientThread ct = al.get(i);
-						writeMsg((i+1) + ") " + ct.username + " since " + ct.date);
+						//writeMsg((i+1) + ") " + ct.username + " since " + ct.date);
+						writeObject(new ChatMessage(MessageType.GroupMessage, (i+1) + ") " + ct.username + " since " + ct.date));
 					}
 					break;
 				}
@@ -288,6 +322,24 @@ public class Server {
 		 * Write a String to the Client output stream
 		 */
 		private boolean writeMsg(String msg) {
+			// if Client is still connected send the message to it
+			if(!socket.isConnected()) {
+				close();
+				return false;
+			}
+			// write the message to the stream
+			try {
+				sOutput.writeObject(msg);
+			}
+			// if an error occurs, do not abort just inform the user
+			catch(IOException e) {
+				display("Error sending message to " + username);
+				display(e.toString());
+			}
+			return true;
+		}
+
+		private boolean writeObject(Object msg) {
 			// if Client is still connected send the message to it
 			if(!socket.isConnected()) {
 				close();

@@ -19,7 +19,25 @@ public class TestMain {
 		for(Contact c : list){
 			System.out.println("Contact List from database via Hibernate:: " + c.getName());
 		}
-		
+
+		if(contactDAO.exists("GOOSE"))
+		{
+			System.out.println("This is CORRECT! user GOOSE exists in DB ");
+		}
+		else
+		{
+			System.out.println("This is WRONG! user GOOSE does NOT exists in DB ");
+		}
+
+		if(!contactDAO.exists("NOTGOOSE"))
+		{
+			System.out.println("NOT GOOSE is CORRECT! user NOTGOOSE does not exists in DB ");
+		}
+		else
+		{
+			System.out.println("This is WRONG! user NOTGOOSE exists in DB ");
+		}
+
 		TeamDAO teamDAO = context.getBean(TeamDAO.class);
 		Team team = new Team("Team1");
 		teamDAO.save(team);

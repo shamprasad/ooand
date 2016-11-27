@@ -13,7 +13,15 @@ public class ContactDAO implements IContactDAO {
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
-	
+
+	public boolean exists(String name)
+	{
+		Session session = this.sessionFactory.openSession();
+		List<Contact> contactList = session.createQuery("from Contact where name = :name").setParameter("name", name).list();
+		session.close();
+		return contactList.size() > 0;
+	}
+
 	public void save(Contact contact){
 		Session session = this.sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();

@@ -9,7 +9,7 @@ import java.awt.event.*;
 /*
  * The Client with its GUI
  */
-public class ClientWindow extends JFrame implements ActionListener {
+public class ClientWindow extends JFrame implements ActionListener, IWeChat {
 
 	// will first hold "Username:", later on "Enter message"
 	private JLabel label;
@@ -124,13 +124,13 @@ public class ClientWindow extends JFrame implements ActionListener {
 	}
 
 	// called by the Client to append text in the TextArea 
-	void append(String str) {
+	public void append(String str) {
 		TextArea.append(str);
 		TextArea.setCaretPosition(TextArea.getText().length() - 1);
 	}
 	// called by the GUI is the connection failed
 	// we reset our buttons, label, text field
-	void connectionFailed() {
+	public void connectionFailed() {
 		login.setEnabled(true);
 		logout.setEnabled(false);
 		OnlineUsers.setEnabled(false);
@@ -250,6 +250,8 @@ public class ClientWindow extends JFrame implements ActionListener {
 
 
 	}
+
+	public void loginSuccessful(){}
 
 	// to start the whole thing the server
 	public static void main(String[] args) {

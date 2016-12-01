@@ -15,7 +15,7 @@ public class Client  {
 	private Socket socket;
 
 	// if I use a GUI or not
-	private ClientWindow clientGraphicInterface;
+	private IWeChat clientGraphicInterface;
 	
 	// the server, the port and the username
 	private String server, username;
@@ -32,11 +32,15 @@ public class Client  {
 		this(server, port, username, null);
 	}
 
+	Client(String server, int port, IWeChat clientWindow){
+		this(server, port, null, clientWindow);
+	}
+
 	/*
 	 * Constructor call when used from a GUI
 	 * in console mode the ClienGUI parameter is null
 	 */
-	Client(String server, int port, String username, ClientWindow clientGraphicInterface) {
+	Client(String server, int port, String username, IWeChat clientGraphicInterface) {
 		this.server = server;
 		this.port = port;
 		this.username = username;
@@ -247,7 +251,12 @@ public class Client  {
 							clientGraphicInterface.append(msg.getMessage());
 							clientGraphicInterface.connectionFailed();
 						}
-						clientGraphicInterface.append(msg.getMessage());
+						else if(msg.getMessageType() == MessageType.LoginReponse && msg.getStauts() == Status.LoginSuccessful){
+							clientGraphicInterface.loginSuccessful();
+						}
+						else{
+							clientGraphicInterface.append(msg.getMessage());
+						}
 					}
 				}
 				catch(IOException e) {

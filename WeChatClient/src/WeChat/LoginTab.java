@@ -9,17 +9,17 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class LoginTab extends JPanel implements ActionListener, IWeChat{
-    private JTabbedPane pane;
     private JButton btLogin, btRegister;
-    private Client client;
-    private boolean connected = false;
+    private WeChatFrame frame;
+  //  private Client client;
+  //  private boolean connected = false;
     private JTextField txtUserName;
     private JPasswordField txtPassword;
     private JLabel labalStatus;
 
-    public LoginTab(JTabbedPane pane, int index){
+    public LoginTab(WeChatFrame frame){
 
-        this.pane = pane;
+        this.frame = frame;
         setOpaque(false);
 
         setLayout(new GridBagLayout());
@@ -60,30 +60,29 @@ public class LoginTab extends JPanel implements ActionListener, IWeChat{
         labalStatus = new JLabel();
         add(labalStatus, gbc);
 
-        pane.add(this, "Login");
+        this.frame.getTabbedPane().add(this, "Login");
     }
-
 
     public void actionPerformed(ActionEvent e) {
         Object o = e.getSource();
 
-        if(!connected){
+        if(!this.frame.getConnected()){
             try{
-                client = new Client("localhost", 1501, this);
-                connected = true;
-                if(client.start()){
+                this.frame.setClient(new Client("localhost", 1501, this));
+                this.frame.setConnected(true);
+                if(this.frame.getClient().start()){
                     return ;
                 }
             }
             catch (Exception e1){
-                connected = false;
+                this.frame.setConnected(false);
                 connectionFailed();
             }
         }
 
         if(o == btLogin){
            // client.sendMessage(new ChatMessage(MessageType.LogIn, "UserName:" + txtUserName.getText() + ",Password" + txtPassword.getPassword() ));
-            client.sendMessage(new ChatMessage(MessageType.LogIn, txtUserName.getText()));
+            this.frame.getClient().sendMessage(new ChatMessage(MessageType.LogIn, txtUserName.getText()));
         }
 
     }
@@ -98,7 +97,7 @@ public class LoginTab extends JPanel implements ActionListener, IWeChat{
     }
 
     public void loginSuccessful(){
-        pane.remove(this);
-        new MainTab(pane);
+        this.frame.getTabbedPane().remove(this);
+        new MainTab(this.frame.getTabbedPane());
     }
 }

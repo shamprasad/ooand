@@ -38,4 +38,8 @@ public class ContactItem {
     public String getLastMessage(){
         return this.lastMessage;
     }
+
+    public String toString(){
+        return this.name;
+    }
 }

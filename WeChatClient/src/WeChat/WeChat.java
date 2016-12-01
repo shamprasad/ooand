@@ -20,7 +20,7 @@ public class WeChat extends JFrame {
                 jtp.setTabLayoutPolicy(SCROLL_TAB_LAYOUT);
                 frame.add(jtp, BorderLayout.CENTER);
 
-                new LoginTab(jtp, 0);
+              //  new LoginTab(, 0);
 /*
                 for (int i=0; i<4; i++) {
                     JButton button = new JButton("Card " + i);

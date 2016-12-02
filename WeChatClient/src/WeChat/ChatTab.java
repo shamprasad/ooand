@@ -1,5 +1,7 @@
 package wechat;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -40,7 +42,10 @@ public class ChatTab  extends JPanel implements ActionListener, IWeChat {
     public void connectionFailed(){
     }
 
-    public void loginSuccessful(){
+    public void loginSuccessful(int userId){
+    }
+    public void setContactList(java.util.List<wechat.Contact> contactList){
+        throw new NotImplementedException();
     }
 }
 

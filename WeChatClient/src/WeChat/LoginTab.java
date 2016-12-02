@@ -70,7 +70,7 @@ public class LoginTab extends JPanel implements ActionListener, IWeChat{
             try{
                 this.frame.setClient(new Client("localhost", 1501, this));
                 this.frame.setConnected(true);
-                if(this.frame.getClient().start()){
+                if(!this.frame.getClient().start()){
                     return ;
                 }
             }

@@ -1,6 +1,8 @@
 package wechat;
 
 import java.io.*;
+import java.util.List;
+
 /*
  * This class defines the different type of messages that will be exchanged between the
  * Clients and the Server.
@@ -18,6 +20,7 @@ public class ChatMessage extends Message implements Serializable {
     private  MessageType _messageType;
     private Status _status;
     private String message;
+    private List<Contact> contactList;
 
     // constructor
     ChatMessage(MessageType type, String message) {
@@ -96,5 +99,13 @@ public class ChatMessage extends Message implements Serializable {
     public void setStatus(Status status)
     {
         this._status = status;
+    }
+
+    public void setContactList(List<Contact> contactList){
+        this.contactList = contactList;
+    }
+
+    public List<Contact> getContactList(){
+        return this.contactList;
     }
 }

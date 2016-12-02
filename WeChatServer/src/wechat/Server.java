@@ -168,7 +168,7 @@ public class Server {
 	public static void main(String[] args) {
 		// start server on port 1500 unless a PortNumber is specified
 
-		int portNumber = 1500;
+		int portNumber = 1501;
 		switch(args.length) {
 			case 1:
 				try {
@@ -250,12 +250,22 @@ public class Server {
 
 		}
 
-		private boolean login(String userName)
+		private int login(String userName)
 		{
 			ContactDAO contactDAO = context.getBean(ContactDAO.class);
 
-			return contactDAO.exists(userName);
+			Contact contact = contactDAO.get(userName);
+			if(null != contact){
+				return contact.getId();
+			}
+			return 0;
 		}
+
+		private List<wechat.Contact> getFriendList(int userId){
+			ContactDAO contactDAO = context.getBean(ContactDAO.class);
+			return contactDAO.listByUser(userId);
+		}
+
 
 		// what will run forever
 		public void run() {
@@ -288,9 +298,11 @@ public class Server {
 					break;
 				case LogIn:
 					ChatMessage chatMessage = new ChatMessage(MessageType.LoginReponse, "");
-					if(login(message.trim())){
+					int userId = login(message.trim());
+					if(userId != 0){
 						chatMessage.setStatus(Status.LoginSuccessful);
 						chatMessage.setMessage("Login Successfully");
+						chatMessage.setFromContactId(userId);
 					}
 					else{
 						chatMessage.setStatus(Status.LoginFailed);
@@ -298,6 +310,12 @@ public class Server {
 					}
 					writeObject(chatMessage);
 					break;
+				case FriendListRequest:
+						List<wechat.Contact> friends = getFriendList(cm.getFromContactId());
+						ChatMessage cm1 = new ChatMessage(MessageType.FriendListResponse, "Number of friends: " + friends.size());
+						cm1.setContactList(friends);
+						writeObject(cm1);
+
 				case LogOut:
 					display(username + " disconnected with a LOGOUT message.");
 					serverStop = false;

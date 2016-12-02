@@ -17,4 +17,11 @@ create table team_contact(
 	teamId int not null,
     contactId int not null,
     primary key (id)
-);    
+);  
+
+create table contact_contact(
+	id int NOT NULL auto_increment,
+	teamId int not null,
+    contactId int not null,
+    primary key (id)
+);      

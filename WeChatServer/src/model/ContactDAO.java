@@ -29,6 +29,16 @@ public class ContactDAO implements IContactDAO {
 		tx.commit();
 		session.close();		
 	}
+
+
+	public Contact get(String name){
+		Session session = this.sessionFactory.openSession();
+		List<Contact> contactList = session.createQuery("from Contact where name = :name").setParameter("name", name).list();
+		if(contactList.size() > 0){
+			return contactList.get(0);
+		}
+		return null;
+	}
 	
 	public List<Contact> list(){
 		Session session = this.sessionFactory.openSession();
@@ -39,5 +49,13 @@ public class ContactDAO implements IContactDAO {
 	
 	public List<Contact> list(int groupId) {
 		throw new UnsupportedOperationException();
+	}
+
+	public List<wechat.Contact> listByUser(int userId){
+		Session session = this.sessionFactory.openSession();
+		List<wechat.Contact> contactList = session.createQuery("select distinct c from Contact c, ContactContact cc  where c.id = cc.friendContactId and cc.contactId = :contactId")
+				.setParameter("contactId", userId).list();
+
+		return contactList;
 	}
 }

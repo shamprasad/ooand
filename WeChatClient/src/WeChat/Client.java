@@ -252,7 +252,10 @@ public class Client  {
 							clientGraphicInterface.connectionFailed();
 						}
 						else if(msg.getMessageType() == MessageType.LoginReponse && msg.getStauts() == Status.LoginSuccessful){
-							clientGraphicInterface.loginSuccessful();
+							clientGraphicInterface.loginSuccessful(msg.getFromContactId());
+						}
+						else if(msg.getMessageType() == MessageType.FriendListResponse){
+							clientGraphicInterface.setContactList(msg.getContactList());
 						}
 						else{
 							clientGraphicInterface.append(msg.getMessage());

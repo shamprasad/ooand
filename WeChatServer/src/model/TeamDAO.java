@@ -32,7 +32,7 @@ public class TeamDAO implements ITeamDAO {
 	public List<Contact> list(int groupId)
 	{
 		Session session = this.sessionFactory.openSession();
-		List<Contact> contactList = session.createQuery("select * from from Team").list();
+		List<Contact> contactList = session.createQuery("select * from Team").list();
 		session.close();
 		return contactList;		
 	}

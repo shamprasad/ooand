@@ -38,6 +38,12 @@ public class TestMain {
 			System.out.println("This is WRONG! user NOTGOOSE exists in DB ");
 		}
 
+		List<wechat.Contact> friends = contactDAO.listByUser(25);
+
+		for(wechat.Contact c : friends){
+			System.out.println("My Friend: " + c.getName());
+		}
+
 		TeamDAO teamDAO = context.getBean(TeamDAO.class);
 		Team team = new Team("Team1");
 		teamDAO.save(team);
@@ -67,7 +73,11 @@ public class TestMain {
 		{
 			System.out.println("TeamConact list from database via hibernate: " + c.toString());
 		}
-		
+
+
+
+
+
 		context.close();
 		
 	}

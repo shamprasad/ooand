@@ -4,9 +4,12 @@ package wechat;
  * Created by ek2zqun on 11/30/2016.
  */
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.List;
 
 public class LoginTab extends JPanel implements ActionListener, IWeChat{
     private JButton btLogin, btRegister;
@@ -68,7 +71,7 @@ public class LoginTab extends JPanel implements ActionListener, IWeChat{
 
         if(!this.frame.getConnected()){
             try{
-                this.frame.setClient(new Client("localhost", 1501, this));
+                this.frame.setClient(new Client("localhost", 1503, this));
                 this.frame.setConnected(true);
                 if(!this.frame.getClient().start()){
                     return ;
@@ -96,8 +99,16 @@ public class LoginTab extends JPanel implements ActionListener, IWeChat{
         labalStatus.setText("Connection Failed!");
     }
 
-    public void loginSuccessful(){
+    public void loginSuccessful(int userId){
         this.frame.getTabbedPane().remove(this);
-        new MainTab(this.frame.getTabbedPane());
+        ChatMessage chatMessage = new ChatMessage(MessageType.FriendListRequest, "");
+        this.frame.setCurrentUserId(userId);
+        chatMessage.setFromContactId(userId);
+        this.frame.getClient().sendMessage(chatMessage);
+        new MainTab(this.frame);
+    }
+
+    public void setContactList(List<wechat.Contact> contactList){
+        throw new NotImplementedException();
     }
 }

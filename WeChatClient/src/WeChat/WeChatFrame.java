@@ -3,6 +3,9 @@ package wechat;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.*;
+import java.util.List;
+
 import static javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT;
 
 /**
@@ -12,6 +15,9 @@ public class WeChatFrame extends JFrame implements IWeChat {
     private JTabbedPane tabbedPane;
     private Client client;
     private boolean connected;
+    private int currentUserId;
+    private String currentUserName;
+    private List<wechat.Contact> contactList;
 
     public WeChatFrame(String title) {
         this.setTitle(title);
@@ -33,8 +39,18 @@ public class WeChatFrame extends JFrame implements IWeChat {
         ((IWeChat) this.tabbedPane.getSelectedComponent()).connectionFailed();
     }
 
-    public void loginSuccessful(){
-        ((IWeChat) this.tabbedPane.getSelectedComponent()).loginSuccessful();
+    public void loginSuccessful(int userId){
+        ((IWeChat) this.tabbedPane.getSelectedComponent()).loginSuccessful(userId);
+    }
+
+    public void setContactList(java.util.List<wechat.Contact> contactList){
+        this.contactList = contactList;
+        ActionEvent event = new ActionEvent(this, 1, "ContactListChanged");
+        event.notifyAll();
+    }
+
+    public List<wechat.Contact> getContactList(){
+        return this.contactList;
     }
 
     public void setClient(Client client){
@@ -55,6 +71,22 @@ public class WeChatFrame extends JFrame implements IWeChat {
 
     public JTabbedPane getTabbedPane(){
         return this.tabbedPane;
+    }
+
+    public void setCurrentUserId(int currentUserId){
+        this.currentUserId = currentUserId;
+    }
+
+    public int getCurrentUserId(){
+        return this.currentUserId;
+    }
+
+    public void setCurrentUserName(String currentUserName){
+        this.currentUserName = currentUserName;
+    }
+
+    public String getCurrentUserName(){
+        return this.currentUserName;
     }
 
     public static void main(String args[]){

@@ -28,6 +28,7 @@
 		<property name="annotatedClasses">
 			<list>
 				<value>model.Contact</value>
+				<value>model.ContactContact</value>
 				<value>model.Team</value>
 				<value>model.TeamContact</value>
 			</list>

@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.*;
 
 
 /*
@@ -251,7 +252,8 @@ public class ClientWindow extends JFrame implements ActionListener, IWeChat {
 
 	}
 
-	public void loginSuccessful(){}
+	public void loginSuccessful(int userId){}
+	public void setContactList(java.util.List<wechat.Contact> contactList){}
 
 	// to start the whole thing the server
 	public static void main(String[] args) {

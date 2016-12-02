@@ -19,8 +19,8 @@ public class MainTab extends JPanel implements ActionListener, IWeChat {
 
     public MainTab(WeChatFrame frame){
         this.frame = frame;
-        model.addElement(new ContactItem(1, "User1"));
-        model.addElement(new ContactItem(2, "User2"));
+  //      model.addElement(new ContactItem(1, "User1"));
+  //      model.addElement(new ContactItem(2, "User2"));
 
 
         contacts = new JList(model);

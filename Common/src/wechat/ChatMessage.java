@@ -1,7 +1,7 @@
 package wechat;
 
 import java.io.*;
-import java.util.List;
+import java.util.*;
 
 /*
  * This class defines the different type of messages that will be exchanged between the
@@ -20,7 +20,8 @@ public class ChatMessage extends Message implements Serializable {
     private  MessageType _messageType;
     private Status _status;
     private String message;
-    private List<Contact> contactList;
+    transient private List<Contact> contactList;
+    private String contactListString;
 
     // constructor
     ChatMessage(MessageType type, String message) {
@@ -102,10 +103,19 @@ public class ChatMessage extends Message implements Serializable {
     }
 
     public void setContactList(List<Contact> contactList){
-        this.contactList = contactList;
+        contactListString = "";
+        for(Contact c: contactList){
+            contactListString += c.getId() + "," + c.getName() + ";";
+        }
     }
 
     public List<Contact> getContactList(){
-        return this.contactList;
+        List<Contact> contactList = new ArrayList<Contact>();
+        String[] contacts = contactListString.split(";");
+        for(String c : contacts){
+            String[] t = c.split(",");
+            contactList.add(new Contact(Integer.parseInt(t[0]), t[1]));
+        }
+        return contactList;
     }
 }

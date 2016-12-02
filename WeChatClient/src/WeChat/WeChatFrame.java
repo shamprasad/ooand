@@ -3,6 +3,7 @@ package wechat;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.*;
 import java.util.List;
 
@@ -46,7 +47,10 @@ public class WeChatFrame extends JFrame implements IWeChat {
     public void setContactList(java.util.List<wechat.Contact> contactList){
         this.contactList = contactList;
         ActionEvent event = new ActionEvent(this, 1, "ContactListChanged");
-        event.notifyAll();
+        java.awt.Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(event);
+        ((ActionListener) this.tabbedPane.getSelectedComponent()).actionPerformed(event);
+//        this.dispatchEvent(event);
+//        event.notifyAll();
     }
 
     public List<wechat.Contact> getContactList(){

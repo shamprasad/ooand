@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -53,9 +54,13 @@ public class ContactDAO implements IContactDAO {
 
 	public List<wechat.Contact> listByUser(int userId){
 		Session session = this.sessionFactory.openSession();
-		List<wechat.Contact> contactList = session.createQuery("select distinct c from Contact c, ContactContact cc  where c.id = cc.friendContactId and cc.contactId = :contactId")
+		List<model.Contact> modelContactList = session.createQuery("select distinct c from Contact c, ContactContact cc  where c.id = cc.friendContactId and cc.contactId = :contactId")
 				.setParameter("contactId", userId).list();
 
+		List<wechat.Contact> contactList = new ArrayList<wechat.Contact>();
+		for(model.Contact c : modelContactList){
+			contactList.add(new wechat.Contact(c.getId(), c.getName()));
+		}
 		return contactList;
 	}
 }

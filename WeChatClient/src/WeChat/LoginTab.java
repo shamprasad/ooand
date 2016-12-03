@@ -71,7 +71,7 @@ public class LoginTab extends JPanel implements ActionListener, IWeChat{
 
         if(!this.frame.getConnected()){
             try{
-                this.frame.setClient(new Client("localhost", 1503, this.frame));
+                this.frame.setClient(new Client("localhost", 1504, this.frame));
                 this.frame.setConnected(true);
                 if(!this.frame.getClient().start()){
                     return ;
@@ -102,6 +102,7 @@ public class LoginTab extends JPanel implements ActionListener, IWeChat{
     public void loginSuccessful(int userId){
         ChatMessage chatMessage = new ChatMessage(MessageType.FriendListRequest, "");
         this.frame.setCurrentUserId(userId);
+        this.frame.setCurrentUserName(txtUserName.getText().trim());
         chatMessage.setFromContactId(userId);
         this.frame.getClient().sendMessage(chatMessage);
         this.frame.getTabbedPane().remove(this);
@@ -109,6 +110,10 @@ public class LoginTab extends JPanel implements ActionListener, IWeChat{
     }
 
     public void setContactList(List<wechat.Contact> contactList){
+        throw new NotImplementedException();
+    }
+
+    public void receiveMessage(ChatMessage chatMessage){
         throw new NotImplementedException();
     }
 }

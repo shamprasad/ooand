@@ -1,5 +1,7 @@
 package wechat;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 import javax.swing.*;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
@@ -29,6 +31,8 @@ public class MainTab extends JPanel implements ActionListener, IWeChat {
             public void valueChanged(ListSelectionEvent e) {
                 JList lsm = (JList)e.getSource();
                 int i1 = lsm.getLeadSelectionIndex();
+                ContactItem item = (ContactItem)lsm.getModel().getElementAt(i1);
+                frame.addChatTab(item.getId(), item.getName());
             }
         });
 
@@ -61,6 +65,10 @@ public class MainTab extends JPanel implements ActionListener, IWeChat {
         for(wechat.Contact c: contactList){
             model.addElement(new ContactItem(c.getId(), c.getName()));
         }
+    }
+
+    public void receiveMessage(ChatMessage chatMessage){
+        throw new NotImplementedException();
     }
 
 }

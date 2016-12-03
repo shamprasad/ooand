@@ -257,6 +257,9 @@ public class Client  {
 						else if(msg.getMessageType() == MessageType.FriendListResponse){
 							clientGraphicInterface.setContactList(msg.getContactList());
 						}
+						else if(msg.getMessageType() == MessageType.IndividualMessage){
+							clientGraphicInterface.receiveMessage(msg);
+						}
 						else{
 							clientGraphicInterface.append(msg.getMessage());
 						}

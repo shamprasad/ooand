@@ -20,6 +20,7 @@ public class ChatMessage extends Message implements Serializable {
     private  MessageType _messageType;
     private Status _status;
     private String message;
+    private String fromUserName, toUserName;
     transient private List<Contact> contactList;
     private String contactListString;
 
@@ -91,6 +92,23 @@ public class ChatMessage extends Message implements Serializable {
     {
     	_groupId = id;
     }
+
+    public void setFromUserName(String fromUserName){
+        this.fromUserName = fromUserName;
+    }
+
+    public String getFromUserName(){
+        return this.fromUserName;
+    }
+
+    public void setToUserName(String toUserName){
+        this.toUserName = toUserName;
+    }
+
+    public String getToUserName(){
+        return this.toUserName;
+    }
+
 
     public Status getStauts()
     {

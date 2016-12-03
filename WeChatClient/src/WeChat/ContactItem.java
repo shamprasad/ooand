@@ -12,7 +12,16 @@ public class ContactItem {
     private String lastMessage;
 
     public ContactItem(int id, String name){
+        this.id = id;
         this.name = name;
+    }
+
+    public int getId(){
+        return this.id;
+    }
+
+    public void setId(int id){
+        this.id = id;
     }
 
     public void setImage(ImageIcon icon){

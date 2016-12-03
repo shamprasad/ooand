@@ -19,6 +19,7 @@ public class WeChatFrame extends JFrame implements IWeChat {
     private int currentUserId;
     private String currentUserName;
     private List<wechat.Contact> contactList;
+    private HashMap<Integer, JPanel> chatTabs;
 
     public WeChatFrame(String title) {
         this.setTitle(title);
@@ -28,8 +29,11 @@ public class WeChatFrame extends JFrame implements IWeChat {
         this.add(tabbedPane, BorderLayout.CENTER);
 
         new LoginTab(this);
-        setSize(400, 200);
+        setSize(300, 600);
+        setMinimumSize(new Dimension(300, 600));
+
         setVisible(true);
+        chatTabs = new HashMap<Integer, JPanel>();
     }
 
     public void append(String message){
@@ -49,8 +53,18 @@ public class WeChatFrame extends JFrame implements IWeChat {
         ActionEvent event = new ActionEvent(this, 1, "ContactListChanged");
         java.awt.Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(event);
         ((ActionListener) this.tabbedPane.getSelectedComponent()).actionPerformed(event);
-//        this.dispatchEvent(event);
-//        event.notifyAll();
+    }
+
+    public void receiveMessage(ChatMessage chatMessage){
+        addChatTab(chatMessage.getFromContactId(), chatMessage.getFromUserName());
+        ((IWeChat)chatTabs.get(chatMessage.getFromContactId()) ).receiveMessage(chatMessage);
+    }
+
+    public void addChatTab(int userId, String userName){
+        if(!chatTabs.containsKey(userId)){
+            chatTabs.put(userId, new ChatTab(this, userName, userId));
+            this.getTabbedPane().add(chatTabs.get(userId), userName);
+        }
     }
 
     public List<wechat.Contact> getContactList(){

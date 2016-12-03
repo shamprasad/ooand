@@ -1,5 +1,6 @@
 package wechat;
 
+import com.sun.deploy.util.SessionState;
 import model.*;
 import model.Contact;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -199,6 +200,11 @@ public class Server {
 		ObjectOutputStream sOutput;
 		// my unique id (easier for deconnection)
 		int id;
+
+		// user id
+
+		int userId;
+
 		// the Username of the Client
 		String username;
 		// the only type of message a will receive
@@ -256,7 +262,9 @@ public class Server {
 
 			Contact contact = contactDAO.get(userName);
 			if(null != contact){
-				return contact.getId();
+				this.username = userName;
+				this.userId = contact.getId();
+				return this.userId;
 			}
 			return 0;
 		}
@@ -265,7 +273,6 @@ public class Server {
 			ContactDAO contactDAO = context.getBean(ContactDAO.class);
 			return contactDAO.listByUser(userId);
 		}
-
 
 		// what will run forever
 		public void run() {
@@ -311,11 +318,20 @@ public class Server {
 					writeObject(chatMessage);
 					break;
 				case FriendListRequest:
-						List<wechat.Contact> friends = getFriendList(cm.getFromContactId());
-						ChatMessage cm1 = new ChatMessage(MessageType.FriendListResponse, "Number of friends: " + friends.size());
-						cm1.setContactList(friends);
-						writeObject(cm1);
-
+					List<wechat.Contact> friends = getFriendList(cm.getFromContactId());
+					ChatMessage cm1 = new ChatMessage(MessageType.FriendListResponse, "Number of friends: " + friends.size());
+					cm1.setContactList(friends);
+					writeObject(cm1);
+					break;
+				case IndividualMessage:
+				{
+					for(ClientThread ct : al){
+						if(ct.userId == cm.getToContactId()){
+							ct.writeObject(cm);
+						}
+					}
+					break;
+				}
 				case LogOut:
 					display(username + " disconnected with a LOGOUT message.");
 					serverStop = false;

@@ -205,6 +205,8 @@ public class Server {
 
 		int userId;
 
+		HashSet<Integer> groupIds;
+
 		// the Username of the Client
 		String username;
 		// the only type of message a will receive
@@ -216,6 +218,7 @@ public class Server {
 		ClientThread(Socket socket) {
 			// a unique id
 			id = ++uniqueId;
+			groupIds = new HashSet<>();
 			this.socket = socket;
 			/* Creating both Data Stream */
 			System.out.println("Thread trying to create Object Input/Output Streams");
@@ -264,6 +267,13 @@ public class Server {
 			if(null != contact){
 				this.username = userName;
 				this.userId = contact.getId();
+
+				TeamDAO teamDAO = context.getBean(TeamDAO.class);
+				List<Team> teams = teamDAO.listTeam(this.userId);
+				for(Team team : teams){
+					groupIds.add(team.getId());
+				}
+
 				return this.userId;
 			}
 			return 0;
@@ -271,7 +281,34 @@ public class Server {
 
 		private List<wechat.Contact> getFriendList(int userId){
 			ContactDAO contactDAO = context.getBean(ContactDAO.class);
-			return contactDAO.listByUser(userId);
+			List<model.Contact> modelContactList = contactDAO.listByUser(userId);
+			List<wechat.Contact> contactList = new ArrayList<wechat.Contact>();
+			for(model.Contact c : modelContactList){
+				contactList.add(new wechat.Contact(c.getId(), c.getName()));
+			}
+			return contactList;
+		}
+
+		private List<wechat.Contact> getGroupList(int userId){
+			TeamDAO teamDAO = context.getBean(TeamDAO.class);
+			List<Team> teamList = teamDAO.listTeam(userId);
+			List<wechat.Contact> contactList = new ArrayList<>();
+			for(Team team: teamList){
+				contactList.add(new wechat.Contact(team.getId(), team.getName()));
+			}
+			return contactList;
+		}
+
+		private void broadCastGroupMessage(ChatMessage chatMessage){
+			ChatMessage chatMessagetoSend = new ChatMessage(MessageType.GroupMessage, chatMessage.getMessage());
+			chatMessagetoSend.setFromContactId(chatMessage.getFromContactId());
+			chatMessagetoSend.setFromGroupId(chatMessage.getToGroupId());
+			chatMessagetoSend.setFromGroupName(chatMessage.getToGroupName());
+			for(ClientThread ct : al){
+				if(ct.groupIds.contains(chatMessage.getToGroupId()) && ct.userId != chatMessage.getFromContactId()){
+					ct.writeObject(chatMessagetoSend);
+				}
+			}
 		}
 
 		// what will run forever
@@ -301,7 +338,7 @@ public class Server {
 					register(message);
 					break;
 				case GroupMessage:
-					broadcast(username + ": " + message);
+					broadCastGroupMessage(cm);
 					break;
 				case LogIn:
 					ChatMessage chatMessage = new ChatMessage(MessageType.LoginReponse, "");
@@ -319,8 +356,10 @@ public class Server {
 					break;
 				case FriendListRequest:
 					List<wechat.Contact> friends = getFriendList(cm.getFromContactId());
+					List<wechat.Contact> groups = getGroupList(cm.getFromContactId());
 					ChatMessage cm1 = new ChatMessage(MessageType.FriendListResponse, "Number of friends: " + friends.size());
 					cm1.setContactList(friends);
+					cm1.setGroupList(groups);
 					writeObject(cm1);
 					break;
 				case IndividualMessage:

@@ -16,19 +16,23 @@ public class ChatMessage extends Message implements Serializable {
     // MESSAGE an ordinary message
     // LOGOUT to disconnect from the Server
     static final int OnlineUsers = 0, MESSAGE = 1, LOGOUT = 2;
-    private int _fromContactId, _toContactId, _messageId, _groupId;
+    private int _fromContactId, _toContactId, _messageId, _fromGroupId, _toGroupId;
     private  MessageType _messageType;
     private Status _status;
     private String message;
     private String fromUserName, toUserName;
+    private String fromGroupName, toGroupName;
     transient private List<Contact> contactList;
     private String contactListString;
-
+    private String groupListString;
     // constructor
+
     ChatMessage(MessageType type, String message) {
         this._messageType = type;
         this.message = message;
     }
+
+    ChatMessage(){}
 
     // getters
     MessageType getType() {
@@ -83,14 +87,22 @@ public class ChatMessage extends Message implements Serializable {
         message = m;
     }
     
-    public int getGroupId()
+    public int getFromGroupId()
     {
-    	return _groupId;
+    	return this._fromGroupId;
     }
     
-    public void setGroupId(int id)
+    public void setFromGroupId(int id)
     {
-    	_groupId = id;
+    	this._fromGroupId= id;
+    }
+
+    public void setToGroupId(int toGroupId){
+        this._toGroupId = toGroupId;
+    }
+
+    public int getToGroupId(){
+        return this._toGroupId;
     }
 
     public void setFromUserName(String fromUserName){
@@ -109,6 +121,21 @@ public class ChatMessage extends Message implements Serializable {
         return this.toUserName;
     }
 
+    public void setFromGroupName(String name){
+        this.fromGroupName = name;
+    }
+
+    public String getFromGroupName(){
+        return this.fromGroupName;
+    }
+
+    public void setToGroupName(String name){
+        this.toGroupName = name;
+    }
+
+    public String getToGroupName(){
+        return this.toGroupName;
+    }
 
     public Status getStauts()
     {
@@ -121,15 +148,32 @@ public class ChatMessage extends Message implements Serializable {
     }
 
     public void setContactList(List<Contact> contactList){
-        contactListString = "";
-        for(Contact c: contactList){
-            contactListString += c.getId() + "," + c.getName() + ";";
-        }
+        contactListString = contactListToString(contactList);
     }
 
     public List<Contact> getContactList(){
+       return getContactListFromString(contactListString);
+    }
+
+    public void setGroupList(List<Contact> groupList){
+        groupListString = contactListToString(groupList);
+    }
+
+    public List<Contact> getGroupList(){
+        return getContactListFromString(groupListString);
+    }
+
+    public String contactListToString(List<Contact> contactList) {
+        String res = "";
+        for (Contact c : contactList) {
+            res += c.getId() + "," + c.getName() + ";";
+        }
+        return res;
+    }
+
+    public List<Contact> getContactListFromString(String listString){
         List<Contact> contactList = new ArrayList<Contact>();
-        String[] contacts = contactListString.split(";");
+        String[] contacts = listString.split(";");
         for(String c : contacts){
             String[] t = c.split(",");
             contactList.add(new Contact(Integer.parseInt(t[0]), t[1]));

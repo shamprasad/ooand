@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.*;
+import java.util.*;
 
 /**
  * Created by ek2zqun on 12/1/2016.
@@ -18,11 +19,14 @@ public class ChatTab  extends JPanel implements ActionListener, IWeChat {
     private WeChatFrame frame;
     private String userName;
     private int userId;
+    private int type;
 
-    public ChatTab(WeChatFrame frame, String userName, int userId) {
+
+    public ChatTab(WeChatFrame frame, String userName, int userId, int type) {
         this.frame = frame;
         this.userName = userName;
         this.userId = userId;
+        this.type = type;
 
 
         setLayout(new GridBagLayout());
@@ -73,11 +77,21 @@ public class ChatTab  extends JPanel implements ActionListener, IWeChat {
     }
 
     protected void sendMessage(){
-        ChatMessage chatMessage = new ChatMessage(MessageType.IndividualMessage, textArea.getText());
+        ChatMessage chatMessage = new ChatMessage();
+        chatMessage.setMessage(textArea.getText().trim());
+        if(this.type == 2){
+            chatMessage.setMessageType(MessageType.GroupMessage);
+            chatMessage.setToGroupId(this.userId);
+            chatMessage.setToGroupName(this.userName);
+        }
+        else{
+            chatMessage.setMessageType(MessageType.IndividualMessage);
+            chatMessage.setToContactId(this.userId);
+            chatMessage.setToUserName(this.userName);
+        }
+
         chatMessage.setFromContactId(this.frame.getCurrentUserId());
         chatMessage.setFromUserName(this.frame.getCurrentUserName());
-        chatMessage.setToUserName(this.userName);
-        chatMessage.setToContactId(this.userId);
         this.frame.getClient().sendMessage(chatMessage);
         textArea.setText("");
     }
@@ -87,11 +101,14 @@ public class ChatTab  extends JPanel implements ActionListener, IWeChat {
 
     public void loginSuccessful(int userId){
     }
-    public void setContactList(java.util.List<wechat.Contact> contactList){
+    public void setContactList(java.util.List<wechat.Contact> contactList, java.util.List<wechat.Contact> groupList){
         throw new NotImplementedException();
     }
 
-    public void receiveMessage(ChatMessage chatMessage){
+    public void receiveIndividualMessage(ChatMessage chatMessage){
+        textArea.setText(chatMessage.getMessage());
+    }
+    public void receiveGroupMessage(ChatMessage chatMessage){
         textArea.setText(chatMessage.getMessage());
     }
 }

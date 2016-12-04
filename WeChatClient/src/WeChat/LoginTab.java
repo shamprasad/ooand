@@ -109,11 +109,14 @@ public class LoginTab extends JPanel implements ActionListener, IWeChat{
         new MainTab(this.frame);
     }
 
-    public void setContactList(List<wechat.Contact> contactList){
+    public void setContactList(List<wechat.Contact> contactList, List<wechat.Contact> groupList){
         throw new NotImplementedException();
     }
 
-    public void receiveMessage(ChatMessage chatMessage){
+    public void receiveIndividualMessage(ChatMessage chatMessage){
+        throw new NotImplementedException();
+    }
+    public void receiveGroupMessage(ChatMessage chatMessage){
         throw new NotImplementedException();
     }
 }

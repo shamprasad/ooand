@@ -12,8 +12,7 @@ public class TeamDAO implements ITeamDAO {
         this.sessionFactory = sessionFactory;
     }
 	
-	public void save(Team group)
-	{
+	public void save(Team group){
 		Session session = this.sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		session.persist(group);
@@ -21,19 +20,25 @@ public class TeamDAO implements ITeamDAO {
 		session.close();
 	}
 	
-	public List<Team> list()
-	{
+	public List<Team> list(){
 		Session session = this.sessionFactory.openSession();
 		List<Team> groupList = session.createQuery("from Team").list();
 		session.close();
 		return groupList;
 	}
 	
-	public List<Contact> list(int groupId)
-	{
+	public List<Contact> list(int groupId){
 		Session session = this.sessionFactory.openSession();
 		List<Contact> contactList = session.createQuery("select * from Team").list();
 		session.close();
 		return contactList;		
+	}
+
+	public List<Team> listTeam(int userId){
+		Session session = this.sessionFactory.openSession();
+		List<Team> teamList = session.createQuery("select distinct t from Team t, TeamContact tc where t.id = tc.teamId and tc.contactId = :contactId")
+				.setParameter("contactId", userId).list();
+		session.close();
+		return teamList;
 	}
 }

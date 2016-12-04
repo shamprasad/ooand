@@ -22,7 +22,7 @@ public class Contact {
 	
 	public Contact()
 	{
-	
+
 	}
 
 	public int getId(){

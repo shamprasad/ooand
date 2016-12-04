@@ -255,10 +255,13 @@ public class Client  {
 							clientGraphicInterface.loginSuccessful(msg.getFromContactId());
 						}
 						else if(msg.getMessageType() == MessageType.FriendListResponse){
-							clientGraphicInterface.setContactList(msg.getContactList());
+							clientGraphicInterface.setContactList(msg.getContactList(), msg.getGroupList());
 						}
 						else if(msg.getMessageType() == MessageType.IndividualMessage){
-							clientGraphicInterface.receiveMessage(msg);
+							clientGraphicInterface.receiveIndividualMessage(msg);
+						}
+						else if(msg.getMessageType() == MessageType.GroupMessage){
+							clientGraphicInterface.receiveGroupMessage(msg);
 						}
 						else{
 							clientGraphicInterface.append(msg.getMessage());

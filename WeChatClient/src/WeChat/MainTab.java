@@ -32,7 +32,7 @@ public class MainTab extends JPanel implements ActionListener, IWeChat {
                 JList lsm = (JList)e.getSource();
                 int i1 = lsm.getLeadSelectionIndex();
                 ContactItem item = (ContactItem)lsm.getModel().getElementAt(i1);
-                frame.addChatTab(item.getId(), item.getName());
+                frame.addChatTab(item.getId(), item.getName(), item.getType());
             }
         });
 
@@ -43,9 +43,8 @@ public class MainTab extends JPanel implements ActionListener, IWeChat {
 
     public void actionPerformed(ActionEvent e) {
         if(e.getActionCommand() == "ContactListChanged"){
-            for(wechat.Contact c : this.frame.getContactList()){
-                model.addElement(new ContactItem(c.getId(), c.getName()));
-            }
+            List<List<Contact>> lists = this.frame.getContactList();
+            setContactList(lists.get(0), lists.get(1));
         }
         this.updateUI();
     }
@@ -61,13 +60,19 @@ public class MainTab extends JPanel implements ActionListener, IWeChat {
 
     }
 
-    public void setContactList(List<Contact> contactList){
+    public void setContactList(List<Contact> contactList, List<Contact> groupList){
         for(wechat.Contact c: contactList){
-            model.addElement(new ContactItem(c.getId(), c.getName()));
+            model.addElement(new ContactItem(c.getId(), c.getName(), 1));
+        }
+        for(wechat.Contact c: groupList){
+            model.addElement(new ContactItem(c.getId(), c.getName(), 2));
         }
     }
 
-    public void receiveMessage(ChatMessage chatMessage){
+    public void receiveIndividualMessage(ChatMessage chatMessage){
+        throw new NotImplementedException();
+    }
+    public void receiveGroupMessage(ChatMessage chatMessage){
         throw new NotImplementedException();
     }
 

@@ -14,6 +14,12 @@ public abstract class Message {
     public abstract void setMessageType(MessageType type);
     public abstract String getMessage();
     public abstract void setMessage(String message);
-    public abstract int getGroupId();
-    public abstract void setGroupId(int id);
+    public abstract int getFromGroupId();
+    public abstract void setFromGroupId(int id);
+    public abstract int getToGroupId();
+    public abstract void setToGroupId(int id);
+    public abstract void setFromGroupName(String name);
+    public abstract String getFromGroupName();
+    public abstract void setToGroupName(String name);
+    public abstract String getToGroupName();
 }

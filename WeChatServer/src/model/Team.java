@@ -21,7 +21,15 @@ public class Team {
 	private String name;
 	
 	public Team() {}
-	
+
+	public void setId(int id){
+		this.id = id;
+	}
+
+	public int getId(){
+		return this.id;
+	}
+
 	public Team(String name)
 	{
 		this.name = name;

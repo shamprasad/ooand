@@ -14,6 +14,6 @@ public interface IContactDAO {
 	
 	List<Contact> list(int groupId);
 
-	List<wechat.Contact> listByUser(int userId);
+	List<Contact> listByUser(int userId);
 
 }

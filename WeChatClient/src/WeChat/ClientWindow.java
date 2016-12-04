@@ -253,8 +253,9 @@ public class ClientWindow extends JFrame implements ActionListener, IWeChat {
 	}
 
 	public void loginSuccessful(int userId){}
-	public void setContactList(java.util.List<wechat.Contact> contactList){}
-	public void receiveMessage(ChatMessage chatMessage){}
+	public void setContactList(java.util.List<wechat.Contact> contactList, java.util.List<wechat.Contact> groupList){}
+	public void receiveIndividualMessage(ChatMessage chatMessage){}
+	public void receiveGroupMessage(ChatMessage chatMessage){}
 
 	// to start the whole thing the server
 	public static void main(String[] args) {

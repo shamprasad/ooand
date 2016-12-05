@@ -1,5 +1,7 @@
 package wechat;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -20,8 +22,11 @@ public class WeChatFrame extends JFrame implements IWeChat {
     private String currentUserName;
     private List<wechat.Contact> contactList;
     private List<wechat.Contact> groupList;
-    private HashMap<Integer, JPanel> indivadualChatTabs;
-    private HashMap<Integer, JPanel> groupChatTabs;
+    private List<wechat.Contact> allContactList;
+    private HashMap<Integer, ChatTab> indivadualChatTabs;
+    private HashMap<Integer, ChatTab> groupChatTabs;
+    private AddContactTab addContactTab;
+    private wechat.Contact pendingRequest;
 
     public WeChatFrame(String title) {
         this.setTitle(title);
@@ -35,46 +40,70 @@ public class WeChatFrame extends JFrame implements IWeChat {
         setMinimumSize(new Dimension(300, 600));
 
         setVisible(true);
-        indivadualChatTabs = new HashMap<Integer, JPanel>();
-        groupChatTabs = new HashMap<Integer, JPanel>();
+        indivadualChatTabs = new HashMap<Integer, ChatTab>();
+        groupChatTabs = new HashMap<Integer, ChatTab>();
     }
 
-    public void append(String message){
-        ((IWeChat) this.tabbedPane.getSelectedComponent()).append(message);
-    }
+    public void append(String message){}
 
     public void connectionFailed(){
         ((IWeChat) this.tabbedPane.getSelectedComponent()).connectionFailed();
     }
 
     public void loginSuccessful(int userId){
-        ((IWeChat) this.tabbedPane.getSelectedComponent()).loginSuccessful(userId);
+        ActionEvent event = new ActionEvent(this, 2, "LoginSuccessful");
+        this.setCurrentUserId(userId);
+        ((ActionListener) this.tabbedPane.getSelectedComponent()).actionPerformed(event);
     }
 
     public void setContactList(java.util.List<wechat.Contact> contactList, List<wechat.Contact> groupList){
         this.contactList = contactList;
         this.groupList = groupList;
         ActionEvent event = new ActionEvent(this, 1, "ContactListChanged");
-        java.awt.Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(event);
         ((ActionListener) this.tabbedPane.getSelectedComponent()).actionPerformed(event);
+    }
+
+    public void setAllContactList(List<wechat.Contact> contactList){
+        this.allContactList = contactList;
+        ActionEvent event = new ActionEvent(this, 1, "AllContactListChanged");
+        ((ActionListener) this.addContactTab).actionPerformed(event);
+    }
+
+    public void setPendingRequestList(List<wechat.Contact> pendingRequestList){
+        throw new NotImplementedException();
+    }
+
+    public void addPendingRequest(ChatMessage chatMessage){
+       this.pendingRequest = new wechat.Contact(chatMessage.getFromContactId(), chatMessage.getFromUserName());
+        ActionEvent event = new ActionEvent(this, 1, "PendingRequest");
+        ((ActionListener) this.getAddContactTab()).actionPerformed(event);
+    }
+
+    public wechat.Contact getPendingRequest(){
+        return this.pendingRequest;
+    }
+
+    public List<wechat.Contact> getAllContactList(){
+        return this.allContactList;
     }
 
     public void receiveIndividualMessage(ChatMessage chatMessage){
         addChatTab(chatMessage.getFromContactId(), chatMessage.getFromUserName(), 1);
-        ((IWeChat)indivadualChatTabs.get(chatMessage.getFromContactId())).receiveIndividualMessage(chatMessage);
+        (indivadualChatTabs.get(chatMessage.getFromContactId())).receiveMessage(chatMessage);
     }
 
     public void receiveGroupMessage(ChatMessage chatMessage){
         addChatTab(chatMessage.getFromGroupId(), chatMessage.getFromGroupName(), 2);
-        ((IWeChat)groupChatTabs.get(chatMessage.getFromGroupId())).receiveGroupMessage(chatMessage);
+        (groupChatTabs.get(chatMessage.getFromGroupId())).receiveMessage(chatMessage);
     }
 
     public void addChatTab(int userId, String userName, int type){
-        HashMap<Integer, JPanel> tabs = type == 1? indivadualChatTabs : groupChatTabs;
+        HashMap<Integer, ChatTab> tabs = type == 1? indivadualChatTabs : groupChatTabs;
         if(!tabs.containsKey(userId)){
             tabs.put(userId, new ChatTab(this, userName, userId, type));
             this.getTabbedPane().add(tabs.get(userId), userName);
         }
+        this.getTabbedPane().setSelectedComponent(tabs.get(userId));
     }
 
     public List<List<wechat.Contact>> getContactList(){
@@ -118,6 +147,14 @@ public class WeChatFrame extends JFrame implements IWeChat {
 
     public String getCurrentUserName(){
         return this.currentUserName;
+    }
+
+    public AddContactTab getAddContactTab(){
+        if(this.addContactTab == null){
+           this.addContactTab = new AddContactTab(this);
+        }
+        this.getTabbedPane().add(this.addContactTab, "Adding");
+        return this.addContactTab;
     }
 
     public static void main(String args[]){

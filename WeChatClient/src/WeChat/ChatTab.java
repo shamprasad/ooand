@@ -13,7 +13,8 @@ import java.util.*;
 /**
  * Created by ek2zqun on 12/1/2016.
  */
-public class ChatTab  extends JPanel implements ActionListener, IWeChat {
+public class ChatTab  extends JPanel implements ActionListener{
+    private JTextArea textAreaHistory;
     private JTextArea textArea;
     private JButton btnEnter;
     private WeChatFrame frame;
@@ -30,16 +31,28 @@ public class ChatTab  extends JPanel implements ActionListener, IWeChat {
 
 
         setLayout(new GridBagLayout());
-        textArea = new JTextArea("Welcome", this.frame.getSize().width, 80);
-        textArea.setMinimumSize(new Dimension(this.frame.getWidth(), this.frame.getHeight() - 100));
+        textAreaHistory = new JTextArea("", this.frame.getWidth(), this.frame.getHeight() / 2);
+        textAreaHistory.setMinimumSize(new Dimension(this.frame.getWidth(), this.frame.getHeight() / 2));
+
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
+        textAreaHistory.setBackground(Color.gray);
+        textAreaHistory.setForeground(Color.green);
+        textAreaHistory.setEditable(false);
+        textAreaHistory.setBorder(new EmptyBorder(10, 10, 10, 10));
+        add(textAreaHistory, gbc);
+
+        textArea = new JTextArea("", this.frame.getWidth(), this.frame.getHeight() / 4);
+        textArea.setMinimumSize(new Dimension(this.frame.getWidth(), this.frame.getHeight() / 4));
+        gbc.gridx = 0;
+        gbc.gridy = 1;
         textArea.setBackground(Color.black);
         textArea.setForeground(Color.green);
         textArea.setEditable(true);
         textArea.setBorder(new EmptyBorder(10, 10, 10, 100));
+        textArea.requestFocus();
         add(textArea, gbc);
 
         btnEnter = new JButton("Enter to Send");
@@ -47,7 +60,7 @@ public class ChatTab  extends JPanel implements ActionListener, IWeChat {
         gbc.gridy += 2;
         add(btnEnter, gbc);
         btnEnter.addActionListener(this);
-        btnEnter.addKeyListener(new KeyListener() {
+        textArea.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
 
@@ -73,7 +86,9 @@ public class ChatTab  extends JPanel implements ActionListener, IWeChat {
             sendMessage();
         }
     }
-    public void append(String message){
+
+    public void receiveMessage(ChatMessage chatMessage){
+        textAreaHistory.append(chatMessage.getFromUserName() + ": " + chatMessage.getMessage() + "\n");
     }
 
     protected void sendMessage(){
@@ -94,22 +109,7 @@ public class ChatTab  extends JPanel implements ActionListener, IWeChat {
         chatMessage.setFromUserName(this.frame.getCurrentUserName());
         this.frame.getClient().sendMessage(chatMessage);
         textArea.setText("");
-    }
-
-    public void connectionFailed(){
-    }
-
-    public void loginSuccessful(int userId){
-    }
-    public void setContactList(java.util.List<wechat.Contact> contactList, java.util.List<wechat.Contact> groupList){
-        throw new NotImplementedException();
-    }
-
-    public void receiveIndividualMessage(ChatMessage chatMessage){
-        textArea.setText(chatMessage.getMessage());
-    }
-    public void receiveGroupMessage(ChatMessage chatMessage){
-        textArea.setText(chatMessage.getMessage());
+        textArea.setCaretPosition(0);
     }
 }
 

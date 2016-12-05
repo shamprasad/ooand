@@ -16,5 +16,9 @@ public enum MessageType {
 	LogOutReponse,
 	FriendListRequest,
 	FriendListResponse,
+	AddFriendRequest,
+	AddFriendReponse,
+	AllContactListRequest,
+	AllContactListReponse,
 	IndividualMessage
 }

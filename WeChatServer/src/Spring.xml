@@ -52,5 +52,9 @@
 	
 	<bean id="teamContactDAO" class="model.TeamContactDAO">
 		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
-	</bean>	
+	</bean>
+
+	<bean id="contactContactDAO" class="model.ContactContactDAO">
+		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</bean>
 </beans>

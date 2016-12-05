@@ -5,6 +5,7 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+import java.util.List;
 
 
 /*
@@ -247,15 +248,15 @@ public class ClientWindow extends JFrame implements ActionListener, IWeChat {
 			textField.setText("");
 			return;
 		}
-		
-
-
 	}
 
 	public void loginSuccessful(int userId){}
 	public void setContactList(java.util.List<wechat.Contact> contactList, java.util.List<wechat.Contact> groupList){}
+	public void setAllContactList(java.util.List<wechat.Contact> contactList){}
+	public void setPendingRequestList(List<wechat.Contact> pendingRequestList) {}
 	public void receiveIndividualMessage(ChatMessage chatMessage){}
 	public void receiveGroupMessage(ChatMessage chatMessage){}
+	public void addPendingRequest(ChatMessage chatMessage){}
 
 	// to start the whole thing the server
 	public static void main(String[] args) {

@@ -25,6 +25,8 @@ public class ChatMessage extends Message implements Serializable {
     transient private List<Contact> contactList;
     private String contactListString;
     private String groupListString;
+    private String allContactListString;
+    private String pendingRequestList;
     // constructor
 
     ChatMessage(MessageType type, String message) {
@@ -163,6 +165,22 @@ public class ChatMessage extends Message implements Serializable {
         return getContactListFromString(groupListString);
     }
 
+    public void setAllContactList(List<Contact> contactList){
+        allContactListString = contactListToString(contactList);
+    }
+
+    public List<Contact> getAllContactList(){
+        return getContactListFromString(allContactListString);
+    }
+
+    public void setPendingRequestList(List<Contact> contactList){
+        this.pendingRequestList = contactListToString(contactList);
+    }
+
+    public List<Contact> getPendingRequestList(){
+        return getContactListFromString(this.pendingRequestList);
+    }
+
     public String contactListToString(List<Contact> contactList) {
         String res = "";
         for (Contact c : contactList) {
@@ -173,10 +191,12 @@ public class ChatMessage extends Message implements Serializable {
 
     public List<Contact> getContactListFromString(String listString){
         List<Contact> contactList = new ArrayList<Contact>();
-        String[] contacts = listString.split(";");
-        for(String c : contacts){
-            String[] t = c.split(",");
-            contactList.add(new Contact(Integer.parseInt(t[0]), t[1]));
+        if(listString != null && !listString.isEmpty()){
+            String[] contacts = listString.split(";");
+            for(String c : contacts){
+                String[] t = c.split(",");
+                contactList.add(new Contact(Integer.parseInt(t[0]), t[1]));
+            }
         }
         return contactList;
     }

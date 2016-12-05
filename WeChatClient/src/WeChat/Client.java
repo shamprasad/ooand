@@ -263,6 +263,14 @@ public class Client  {
 						else if(msg.getMessageType() == MessageType.GroupMessage){
 							clientGraphicInterface.receiveGroupMessage(msg);
 						}
+						else if(msg.getMessageType() == MessageType.AllContactListReponse){
+							clientGraphicInterface.setAllContactList(msg.getAllContactList());
+						}
+						else if(msg.getMessageType() == MessageType.AddFriendRequest){
+							clientGraphicInterface.addPendingRequest(msg);
+						}
+						else if(msg.getMessageType() == MessageType.AddFriendReponse){
+						}
 						else{
 							clientGraphicInterface.append(msg.getMessage());
 						}

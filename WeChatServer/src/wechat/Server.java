@@ -302,6 +302,7 @@ public class Server {
 		private void broadCastGroupMessage(ChatMessage chatMessage){
 			ChatMessage chatMessagetoSend = new ChatMessage(MessageType.GroupMessage, chatMessage.getMessage());
 			chatMessagetoSend.setFromContactId(chatMessage.getFromContactId());
+			chatMessagetoSend.setFromUserName(chatMessage.getFromUserName());
 			chatMessagetoSend.setFromGroupId(chatMessage.getToGroupId());
 			chatMessagetoSend.setFromGroupName(chatMessage.getToGroupName());
 			for(ClientThread ct : al){
@@ -371,6 +372,46 @@ public class Server {
 					}
 					break;
 				}
+				case AllContactListRequest:
+					{
+						ContactDAO dao = context.getBean(ContactDAO.class);
+						List<Contact> contacts = dao.list();
+						List<Contact> myContacts = dao.listByUser(cm.getFromContactId());
+						contacts = exclude(contacts, myContacts);
+
+						ChatMessage response = new ChatMessage();
+						response.setMessageType(MessageType.AllContactListReponse);
+						response.setToContactId(cm.getFromContactId());
+						response.setToUserName(cm.getToUserName());
+						List<wechat.Contact> contactList = new ArrayList<wechat.Contact>();
+						for(Contact c : contacts){
+							contactList.add(new wechat.Contact(c.getId(), c.getName()));
+						}
+						response.setAllContactList(contactList);
+						writeObject(response);
+						break;
+					}
+				case AddFriendRequest:
+				{
+					for(ClientThread ct: al){
+						if(ct.userId == cm.getToContactId()){
+							ct.writeObject(cm);
+						}
+					}
+					break;
+				}
+					case AddFriendReponse:
+					{
+						for(ClientThread ct: al) {
+							if (ct.userId == cm.getToContactId()) {
+								if(cm.getMessage().contains("OK")){
+									ContactContactDAO contactContactDAO= context.getBean(ContactContactDAO.class);
+									contactContactDAO.save(new ContactContact(cm.getFromContactId(), cm.getToContactId()));
+									contactContactDAO.save(new ContactContact(cm.getToContactId(), cm.getFromContactId()));
+								}
+							}
+						}
+					}
 				case LogOut:
 					display(username + " disconnected with a LOGOUT message.");
 					serverStop = false;
@@ -393,7 +434,21 @@ public class Server {
 			remove(id);
 			close();
 		}
-		
+
+		private List<Contact> exclude(List<Contact> list1, List<Contact> list2)
+		{
+			List<Contact> res = new ArrayList<>();
+			HashSet<Integer> set = new HashSet<>();
+			for(Contact c: list2){
+				set.add(c.getId());
+			}
+			for(Contact c: list1){
+				if(!set.contains(c.getId())){
+					res.add(c);
+				}
+			}
+			return res;
+		}
 		// try to close everything
 		private void close() {
 			// try to close the connection

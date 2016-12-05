@@ -11,16 +11,15 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
 
-public class LoginTab extends JPanel implements ActionListener, IWeChat{
+public class LoginTab extends JPanel implements ActionListener{
     private JButton btLogin, btRegister;
     private WeChatFrame frame;
-  //  private Client client;
-  //  private boolean connected = false;
     private JTextField txtUserName;
     private JPasswordField txtPassword;
     private JLabel labalStatus;
 
     public LoginTab(WeChatFrame frame){
+        super(new BorderLayout());
 
         this.frame = frame;
         setOpaque(false);
@@ -31,18 +30,33 @@ public class LoginTab extends JPanel implements ActionListener, IWeChat{
         gbc.gridx = 0;
         gbc.gridy = 0;
 
-        add(new Label("User Name"), gbc);
+        JLabel labelUserame = new JLabel("User Name");
+        labelUserame.setOpaque(false);
+        add(labelUserame, gbc);
         gbc.gridx++;
         txtUserName = new JTextField(10);
+        txtUserName.requestFocus();
         add(txtUserName, gbc);
 
         gbc.gridy++;
         gbc.gridx--;
-        add(new Label("Password"), gbc);
+        JLabel labelPassword = new JLabel("Password");
+        labelPassword.setOpaque(false);
+        add(labelPassword, gbc);
 
         gbc.gridx++;
+        gbc.ipady = 5;
+
+
         txtPassword = new JPasswordField(10);
         add(txtPassword, gbc);
+
+        gbc.gridy++;
+        JLabel labelPading = new JLabel();
+        labelPading.setOpaque(false);
+        add(labelPading, gbc);
+        gbc.gridy++;
+        add(labelPading, gbc);
 
         gbc.gridx = 0;
         gbc.gridy += 3;
@@ -71,7 +85,7 @@ public class LoginTab extends JPanel implements ActionListener, IWeChat{
 
         if(!this.frame.getConnected()){
             try{
-                this.frame.setClient(new Client("localhost", 1504, this.frame));
+                this.frame.setClient(new Client("localhost", 1500, this.frame));
                 this.frame.setConnected(true);
                 if(!this.frame.getClient().start()){
                     return ;
@@ -84,39 +98,29 @@ public class LoginTab extends JPanel implements ActionListener, IWeChat{
         }
 
         if(o == btLogin){
-           // client.sendMessage(new ChatMessage(MessageType.LogIn, "UserName:" + txtUserName.getText() + ",Password" + txtPassword.getPassword() ));
-            this.frame.getClient().sendMessage(new ChatMessage(MessageType.LogIn, txtUserName.getText()));
+            this.frame.getClient().sendMessage(new ChatMessage(MessageType.LogIn, txtUserName.getText().trim()));
         }
-
-    }
-
-
-    public void append(String message){
-        labalStatus.setText(message);
+        else if(o == btRegister){
+            this.frame.getClient().sendMessage(new ChatMessage(MessageType.Register, txtUserName.getText().trim()));
+        }
+        else if(e.getActionCommand() == "RegisterSuccessful"){
+            this.frame.getTabbedPane().remove(this);
+            new MainTab(this.frame);
+        }
+        else if(e.getActionCommand() == "LoginSuccessful"){
+            ChatMessage chatMessage = new ChatMessage(MessageType.FriendListRequest, "");
+            this.frame.setCurrentUserName(txtUserName.getText().trim());
+            chatMessage.setFromContactId(this.frame.getCurrentUserId());
+            this.frame.getClient().sendMessage(chatMessage);
+        }
+        else if(e.getActionCommand() == "ContactListChanged"){
+            this.frame.getTabbedPane().remove(this);
+            MainTab tab = new MainTab(this.frame);
+            tab.actionPerformed(e);
+        }
     }
 
     public void connectionFailed(){
         labalStatus.setText("Connection Failed!");
-    }
-
-    public void loginSuccessful(int userId){
-        ChatMessage chatMessage = new ChatMessage(MessageType.FriendListRequest, "");
-        this.frame.setCurrentUserId(userId);
-        this.frame.setCurrentUserName(txtUserName.getText().trim());
-        chatMessage.setFromContactId(userId);
-        this.frame.getClient().sendMessage(chatMessage);
-        this.frame.getTabbedPane().remove(this);
-        new MainTab(this.frame);
-    }
-
-    public void setContactList(List<wechat.Contact> contactList, List<wechat.Contact> groupList){
-        throw new NotImplementedException();
-    }
-
-    public void receiveIndividualMessage(ChatMessage chatMessage){
-        throw new NotImplementedException();
-    }
-    public void receiveGroupMessage(ChatMessage chatMessage){
-        throw new NotImplementedException();
     }
 }

@@ -48,3 +48,13 @@ public class ChatMessage implements Serializable {
 		return sourceC;
 	}
 }
+
+
+/*
+ * The above code is from http://www.coc.qu.edu.sa/en/dr.husam.alhamad/documenthusam/gp/samples/332chattingfinalreport.pdf
+ * We have modified the methods to enable:
+ * 
+ * Methods modified/added:
+ * 1. added getters and setters for groupchat message
+ * 2. added groupchat enum
+ */

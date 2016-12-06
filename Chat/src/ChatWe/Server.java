@@ -347,3 +347,14 @@ public class Server {
 	}
 }
 
+/*
+ * The above code is from http://www.coc.qu.edu.sa/en/dr.husam.alhamad/documenthusam/gp/samples/332chattingfinalreport.pdf
+ * We have modified the methods to enable:
+ * 1. Peer to peer chat
+ * 2. group chat
+ * 
+ * Methods modified:
+ * 1. broadcast()
+ * 2. start()
+ * 3. run()
+ */

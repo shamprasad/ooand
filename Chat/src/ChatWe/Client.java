@@ -247,3 +247,12 @@ public class Client  {
 	}
 }
 
+
+/*
+ * The above code is from http://www.coc.qu.edu.sa/en/dr.husam.alhamad/documenthusam/gp/samples/332chattingfinalreport.pdf
+ * We have modified the methods to enable:
+ * 
+ * Methods modified/added:
+ * 1. None
+ */
+

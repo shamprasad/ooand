@@ -708,3 +708,17 @@ public class ClientWindow extends JFrame implements ActionListener {
 
 }
 
+/*
+ * The above code is from http://www.coc.qu.edu.sa/en/dr.husam.alhamad/documenthusam/gp/samples/332chattingfinalreport.pdf
+ * We have modified the methods to enable:
+ * 1. Peer to peer chat
+ * 2. group chat
+ * 3. functionalities like login, logout, search, add user, add group user, etc
+ * 
+ * Methods modified/added:
+ * 1. actionPerformed()
+ * 2. constructor for UI
+ * 3. getsearch()
+ * 4. getcontact()
+ * 5. getusersgroup()
+ */

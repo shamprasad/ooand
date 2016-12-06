@@ -183,4 +183,13 @@ public class ServerLog extends JFrame implements ActionListener, WindowListener 
 
 }
 
-
+/*
+ * The above code is from http://www.coc.qu.edu.sa/en/dr.husam.alhamad/documenthusam/gp/samples/332chattingfinalreport.pdf
+ * We have modified the methods to enable:
+ * 1. Peer to peer chat
+ * 2. group chat
+ * 
+ * Methods modified:
+ * 1. The constructor where we coded our UI 
+ * 
+ */

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 13 Nov, 2016 7:44:37 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="entities.UserD" table="USERD">
+    <meta attribute="class-description">
+         This class contains the user id. 
+      </meta>
+        <id name="userId" type="int">
+            <column name="USERID" />
+            <generator class="identity" />
+        </id>
+        <property name="userName" type="java.io.Serializable">
+            <column name="USERNAME" />
+        </property>
+        <set name="groupuserses" table="GROUPUSERS" inverse="false" lazy="true">
+            <key>
+                <column name="USERID" />
+            </key>
+            <one-to-many class="entities.Groupusers" />
+        </set>
+        <set name="regDets" table="REGDET" inverse="false" lazy="true">
+            <key>
+                <column name="USERID" />
+            </key>
+            <one-to-many class="entities.RegDet" />
+        </set>
+        <set name="authenticates" table="AUTHENTICATE" inverse="false" lazy="true">
+            <key>
+                <column name="USERID" />
+            </key>
+            <one-to-many class="entities.Authenticate" />
+        </set>
+    </class>
+</hibernate-mapping>

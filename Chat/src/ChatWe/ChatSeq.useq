@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.1.11" icons="true">  
+  <object id="1" language="java" name="ChatWe.Client" project="Algorithms" file="/Algorithms/src/ChatWe/Client.java" 
+    binary="false" label="client" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="259" y="0"/>    
+    <execution id="2">      
+      <position height="108" width="0" x="0" y="246"/>    
+    </execution>    
+    <execution id="4">      
+      <position height="27" width="0" x="0" y="300"/>    
+    </execution>    
+    <execution id="5">      
+      <position height="108" width="0" x="0" y="396"/>    
+    </execution>    
+    <execution id="7">      
+      <position height="27" width="0" x="0" y="450"/>    
+    </execution>    
+    <execution id="8">      
+      <position height="108" width="0" x="0" y="650"/>    
+    </execution>    
+    <execution id="10">      
+      <position height="27" width="0" x="0" y="704"/>    
+    </execution>    
+    <execution id="11">      
+      <position height="108" width="0" x="0" y="108"/>    
+    </execution>    
+    <execution id="13">      
+      <position height="27" width="0" x="0" y="162"/>    
+    </execution>    
+    <execution id="14">      
+      <position height="108" width="0" x="0" y="777"/>    
+    </execution>    
+    <execution id="16">      
+      <position height="27" width="0" x="0" y="831"/>    
+    </execution>    
+    <execution id="17">      
+      <position height="81" width="0" x="0" y="512"/>    
+    </execution>  
+  </object>  
+  <object id="20" language="java" name="ChatWe.ClientGUI" project="Algorithms" 
+    file="/Algorithms/src/ChatWe/ClientGUI.java" binary="false" label="clientGUI" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="438" y="0"/>    
+    <execution id="21">      
+      <position height="108" width="0" x="0" y="214"/>    
+    </execution>    
+    <execution id="23">      
+      <position height="27" width="0" x="0" y="268"/>    
+    </execution>    
+    <execution id="24">      
+      <position height="108" width="0" x="0" y="412"/>    
+    </execution>    
+    <execution id="26">      
+      <position height="27" width="0" x="0" y="466"/>    
+    </execution>    
+    <execution id="27">      
+      <position height="108" width="0" x="0" y="607"/>    
+    </execution>    
+    <execution id="29">      
+      <position height="27" width="0" x="0" y="661"/>    
+    </execution>    
+    <execution id="30">      
+      <position height="108" width="0" x="0" y="800"/>    
+    </execution>    
+    <execution id="32">      
+      <position height="27" width="0" x="0" y="854"/>    
+    </execution>  
+  </object>  
+  <object id="33" language="java" name="ChatWe.Server.ClientThread" project="Algorithms" 
+    file="/Algorithms/src/ChatWe/Server.java" binary="false" label="clientThread" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="632" y="0"/>    
+    <execution id="34">      
+      <position height="27" width="135" x="379" y="1044"/>    
+    </execution>    
+    <execution id="35">      
+      <position height="27" width="135" x="379" y="922"/>    
+    </execution>    
+    <execution id="36">      
+      <position height="27" width="135" x="379" y="836"/>    
+    </execution>  
+  </object>  
+  <object id="37" language="java" name="ChatWe.Server" project="Algorithms" file="/Algorithms/src/ChatWe/Server.java" 
+    binary="false" label="server" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="632" y="0"/>    
+    <execution id="38">      
+      <position height="108" width="0" x="0" y="236"/>    
+    </execution>    
+    <execution id="40">      
+      <position height="27" width="0" x="0" y="290"/>    
+    </execution>    
+    <execution id="41">      
+      <position height="108" width="0" x="0" y="113"/>    
+    </execution>    
+    <execution id="43">      
+      <position height="27" width="0" x="0" y="167"/>    
+    </execution>    
+    <execution id="44">      
+      <position height="108" width="0" x="0" y="548"/>    
+    </execution>    
+    <execution id="46">      
+      <position height="27" width="0" x="0" y="602"/>    
+    </execution>    
+    <execution id="47">      
+      <position height="108" width="0" x="0" y="390"/>    
+    </execution>    
+    <execution id="49">      
+      <position height="27" width="0" x="0" y="444"/>    
+    </execution>    
+    <execution id="50">      
+      <position height="108" width="0" x="0" y="672"/>    
+    </execution>    
+    <execution id="52">      
+      <position height="27" width="0" x="0" y="726"/>    
+    </execution>    
+    <execution id="53">      
+      <position height="81" width="0" x="0" y="1017"/>    
+    </execution>    
+    <execution id="55">      
+      <position height="81" width="0" x="0" y="895"/>    
+    </execution>    
+    <execution id="57">      
+      <position height="81" width="0" x="0" y="809"/>    
+    </execution>  
+  </object>  
+  <object id="59" language="java" name="ChatWe.ServerGUI.ServerRunning" project="Algorithms" 
+    file="/Algorithms/src/ChatWe/ServerGUI.java" binary="false" label="serverRunning" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="777" y="0"/>    
+    <execution id="60">      
+      <position height="108" width="0" x="0" y="228"/>    
+    </execution>    
+    <execution id="62">      
+      <position height="27" width="0" x="0" y="282"/>    
+    </execution>  
+  </object>  
+  <object id="63" language="java" name="ChatWe.ServerGUI" project="Algorithms" 
+    file="/Algorithms/src/ChatWe/ServerGUI.java" binary="false" label="serverGUI" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="777" y="0"/>    
+    <execution id="64">      
+      <position height="81" width="0" x="0" y="289"/>    
+    </execution>    
+    <execution id="67">      
+      <position height="108" width="0" x="0" y="555"/>    
+    </execution>    
+    <execution id="69">      
+      <position height="27" width="0" x="0" y="609"/>    
+    </execution>    
+    <execution id="70">      
+      <position height="108" width="0" x="0" y="392"/>    
+    </execution>    
+    <execution id="72">      
+      <position height="27" width="0" x="0" y="446"/>    
+    </execution>    
+    <execution id="73">      
+      <position height="108" width="0" x="0" y="721"/>    
+    </execution>    
+    <execution id="75">      
+      <position height="27" width="0" x="0" y="775"/>    
+    </execution>    
+    <execution id="76">      
+      <position height="108" width="0" x="0" y="682"/>    
+    </execution>    
+    <execution id="78">      
+      <position height="27" width="0" x="0" y="736"/>    
+    </execution>  
+  </object>  
+  <object id="79" language="java" name="ChatWe.Client.ListenFromServer" project="Algorithms" 
+    file="/Algorithms/src/ChatWe/Client.java" binary="false" label="listenFromServer1" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="19">      
+      <position height="27" width="0" x="0" y="539"/>    
+    </execution>    
+    <execution id="66">      
+      <position height="27" width="182" x="83" y="316"/>    
+    </execution>  
+  </object>  
+  <message id="3" operation="start():boolean" asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="6" operation="sendMessage(ChatWe.ChatMessage):void" asynchronous="false">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="7"/>  
+  </message>  
+  <message id="9" operation="display(java.lang.String):void" asynchronous="false">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="10"/>  
+  </message>  
+  <message id="12" operation="Client(java.lang.String,int,java.lang.String,ChatWe.ClientGUI)" asynchronous="false">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="13"/>  
+  </message>  
+  <message id="15" operation="Client(java.lang.String,int,java.lang.String)" asynchronous="false">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="16"/>  
+  </message>  
+  <message id="18" operation="run():void" asynchronous="false">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="19"/>  
+  </message>  
+  <message id="22" operation="ClientGUI(java.lang.String,int)" asynchronous="false">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="23"/>  
+  </message>  
+  <message id="25" operation="actionPerformed(java.awt.event.ActionEvent):void" asynchronous="false">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="26"/>  
+  </message>  
+  <message id="28" operation="append(java.lang.String):void" asynchronous="false">    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="29"/>  
+  </message>  
+  <message id="31" operation="connectionFailed():void" asynchronous="false">    
+    <end type="SOURCE" refId="30"/>    
+    <end type="TARGET" refId="32"/>  
+  </message>  
+  <message id="39" operation="stop():void" asynchronous="false">    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="40"/>  
+  </message>  
+  <message id="42" operation="start():void" asynchronous="false">    
+    <end type="SOURCE" refId="41"/>    
+    <end type="TARGET" refId="43"/>  
+  </message>  
+  <message id="45" operation="remove(int):void" asynchronous="false">    
+    <end type="SOURCE" refId="44"/>    
+    <end type="TARGET" refId="46"/>  
+  </message>  
+  <message id="48" operation="display(java.lang.String):void" asynchronous="false">    
+    <end type="SOURCE" refId="47"/>    
+    <end type="TARGET" refId="49"/>  
+  </message>  
+  <message id="51" operation="broadcast(java.lang.String):void" asynchronous="false">    
+    <end type="SOURCE" refId="50"/>    
+    <end type="TARGET" refId="52"/>  
+  </message>  
+  <message id="54" operation="run():void" asynchronous="false">    
+    <end type="SOURCE" refId="53"/>    
+    <end type="TARGET" refId="34"/>  
+  </message>  
+  <message id="56" operation="writeMsg(java.lang.String):boolean" asynchronous="false">    
+    <end type="SOURCE" refId="55"/>    
+    <end type="TARGET" refId="35"/>  
+  </message>  
+  <message id="58" operation="close():void" asynchronous="false">    
+    <end type="SOURCE" refId="57"/>    
+    <end type="TARGET" refId="36"/>  
+  </message>  
+  <message id="61" operation="run():void" asynchronous="false">    
+    <end type="SOURCE" refId="60"/>    
+    <end type="TARGET" refId="62"/>  
+  </message>  
+  <message id="65" operation="run():void" asynchronous="false">    
+    <end type="SOURCE" refId="64"/>    
+    <end type="TARGET" refId="66"/>  
+  </message>  
+  <message id="68" operation="ServerGUI(int)" asynchronous="false">    
+    <end type="SOURCE" refId="67"/>    
+    <end type="TARGET" refId="69"/>  
+  </message>  
+  <message id="71" operation="appendEvent(java.lang.String):void" asynchronous="false">    
+    <end type="SOURCE" refId="70"/>    
+    <end type="TARGET" refId="72"/>  
+  </message>  
+  <message id="74" operation="appendEvent(java.lang.String):void" asynchronous="false">    
+    <end type="SOURCE" refId="73"/>    
+    <end type="TARGET" refId="75"/>  
+  </message>  
+  <message id="77" operation="appendRoom(java.lang.String):void" asynchronous="false">    
+    <end type="SOURCE" refId="76"/>    
+    <end type="TARGET" refId="78"/>  
+  </message>
+</sequence-diagram>

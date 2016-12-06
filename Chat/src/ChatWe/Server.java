@@ -348,7 +348,8 @@ public class Server {
 }
 
 /*
- * The above code is from http://www.coc.qu.edu.sa/en/dr.husam.alhamad/documenthusam/gp/samples/332chattingfinalreport.pdf
+ * The above code is from http://www.coc.qu.edu.sa/en/dr.husam.alhamad/documenthusam/gp/samples/332chattingfinalreport.pdf and
+ * http://www.dreamincode.net/forums/topic/259777-a-simple-chat-program-with-clientserver-gui-optional/
  * We have modified the methods to enable:
  * 1. Peer to peer chat
  * 2. group chat

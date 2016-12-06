@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 13 Nov, 2016 7:44:37 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="entities.Groupusers" table="GROUPUSERS">
+        <id name="id" type="entities.GroupusersId">
+            <column name="ID" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="userD" class="entities.UserD" fetch="join">
+            <column name="USERD" />
+        </many-to-one>
+        <many-to-one name="userGroups" class="entities.UserGroups" fetch="join">
+            <column name="USERGROUPS" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

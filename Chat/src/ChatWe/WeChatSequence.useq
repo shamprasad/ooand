@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.1.11" icons="true">  
+  <object id="1" language="java" name="ChatWe.ClientGUI" project="Algorithms" 
+    file="/Algorithms/src/ChatWe/ClientGUI.java" binary="false" label="clientGUI" type="class" autoSize="false">    
+    <position height="124" width="205" x="0" y="0"/>    
+    <execution id="2">      
+      <position height="108" width="0" x="0" y="199"/>    
+    </execution>    
+    <execution id="4">      
+      <position height="27" width="0" x="0" y="253"/>    
+    </execution>    
+    <execution id="5">      
+      <position height="108" width="0" x="0" y="365"/>    
+    </execution>    
+    <execution id="7">      
+      <position height="27" width="0" x="0" y="419"/>    
+    </execution>  
+  </object>  
+  <message id="3" operation="ClientGUI(java.lang.String,int)" asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="6" operation="actionPerformed(java.awt.event.ActionEvent):void" asynchronous="false">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="7"/>  
+  </message>
+</sequence-diagram>

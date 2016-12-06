@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+ <session-factory>
+  <property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
+  <property name="hibernate.connection.password">uma</property>
+  <property name="hibernate.connection.url">jdbc:sqlserver://localhost;databaseName=ChatSys;user=uma;password=uma</property>
+  <property name="hibernate.connection.username">uma</property>
+  <property name="hibernate.default_schema">dbo</property>
+  <property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
+  <property name="hibernate.current_session_context_class">thread</property>
+  <property name="hibernate.connection.isolation">2</property>
+  <property name="show_sql">true</property>
+  <mapping class="entities.Authenticate"/>
+  <mapping class="entities.AuthenticateId"/>
+  <mapping class="entities.Groupusers"/>
+  <mapping class="entities.GroupusersId"/>
+  <mapping class="entities.UserD"/>
+  <mapping class="entities.UserGroups"/>
+  <mapping class="entities.RegDet"/>
+  <mapping class="entities.RegDetId"/>
+  <mapping class="entities.UserContact"/>
+  <mapping class="entities.UserContactId"/>
+ </session-factory>
+</hibernate-configuration>
